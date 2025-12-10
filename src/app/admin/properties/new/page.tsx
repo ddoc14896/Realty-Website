@@ -245,10 +245,10 @@ export default function AddNewPropertyPage() {
               <span className="text-xl font-bold text-gray-900">🏠 Add New Property</span>
             </Link>
             <nav className="flex space-x-8">
-              <Link href="/admin/properties" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/admin/properties" className="text-gray-700 hover:text-brown-600 font-medium">
                 Back to Properties
               </Link>
-              <Link href="/admin" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/admin" className="text-gray-700 hover:text-brown-600 font-medium">
                 Admin
               </Link>
             </nav>
@@ -267,13 +267,16 @@ export default function AddNewPropertyPage() {
               
               return (
                 <div key={stepNumber} className="flex items-center">
-                  <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
-                    isCompleted 
-                      ? 'bg-green-600 border-green-600 text-white'
-                      : isActive 
-                      ? 'border-blue-600 bg-blue-600 text-white'
-                      : 'border-gray-300 text-gray-500'
-                  }`}>
+                  <div 
+                    className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
+                      isCompleted 
+                        ? 'bg-green-600 border-green-600 text-white'
+                        : isActive 
+                        ? 'text-white'
+                        : 'border-gray-300 text-gray-400'
+                    }`}
+                    style={isActive ? { borderColor: 'var(--brown-600)', backgroundColor: 'var(--brown-600)' } : {}}
+                  >
                     {isCompleted ? (
                       <CheckCircle className="h-5 w-5" />
                     ) : (
@@ -281,9 +284,12 @@ export default function AddNewPropertyPage() {
                     )}
                   </div>
                   <div className="ml-3 hidden sm:block">
-                    <p className={`text-sm font-medium ${
-                      isActive ? 'text-blue-600' : isCompleted ? 'text-green-600' : 'text-gray-500'
-                    }`}>
+                    <p 
+                      className={`text-sm font-medium ${
+                        isCompleted ? 'text-green-600' : 'text-gray-500'
+                      }`}
+                      style={isActive ? { color: 'var(--brown-600)' } : {}}
+                    >
                       Step {stepNumber}
                     </p>
                     <p className="text-xs text-gray-500">{getStepTitle(stepNumber)}</p>
@@ -317,8 +323,8 @@ export default function AddNewPropertyPage() {
                   placeholder="e.g., Luxury 3BHK Apartment in Anna Nagar"
                   value={formData.title}
                   onChange={(e) => handleInputChange('title', e.target.value)}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                    errors.title ? 'border-red-500' : 'border-gray-300'
+                  className={`form-input ${
+                    errors.title ? 'border-red-500' : ''
                   }`}
                 />
                 {errors.title && (
@@ -337,7 +343,7 @@ export default function AddNewPropertyPage() {
                   <select
                     value={formData.propertyType}
                     onChange={(e) => handleInputChange('propertyType', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input"
                   >
                     {PROPERTY_TYPES.map(type => (
                       <option key={type.value} value={type.value}>
@@ -354,7 +360,7 @@ export default function AddNewPropertyPage() {
                   <select
                     value={formData.status}
                     onChange={(e) => handleInputChange('status', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input"
                   >
                     {STATUS_OPTIONS.map(status => (
                       <option key={status.value} value={status.value}>
@@ -379,8 +385,8 @@ export default function AddNewPropertyPage() {
                       const value = e.target.value.replace(/[^0-9]/g, '');
                       handleInputChange('price', value);
                     }}
-                    className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.price ? 'border-red-500' : 'border-gray-300'
+                    className={`form-input pl-12 ${
+                      errors.price ? 'border-red-500' : ''
                     }`}
                   />
                 </div>
@@ -406,7 +412,7 @@ export default function AddNewPropertyPage() {
                   placeholder="Describe the property features, location benefits, and unique selling points..."
                   value={formData.description}
                   onChange={(e) => handleInputChange('description', e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input"
                 />
               </div>
             </div>
@@ -426,8 +432,8 @@ export default function AddNewPropertyPage() {
                     placeholder="e.g., 15, 6th Avenue, Besant Nagar Beach Road"
                     value={formData.address}
                     onChange={(e) => handleInputChange('address', e.target.value)}
-                    className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.address ? 'border-red-500' : 'border-gray-300'
+                    className={`form-input pl-12 ${
+                      errors.address ? 'border-red-500' : ''
                     }`}
                   />
                 </div>
@@ -448,7 +454,7 @@ export default function AddNewPropertyPage() {
                     type="text"
                     value={formData.city}
                     onChange={(e) => handleInputChange('city', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input"
                   />
                 </div>
 
@@ -460,7 +466,7 @@ export default function AddNewPropertyPage() {
                     type="text"
                     value={formData.state}
                     onChange={(e) => handleInputChange('state', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input"
                   />
                 </div>
 
@@ -473,8 +479,8 @@ export default function AddNewPropertyPage() {
                     placeholder="600090"
                     value={formData.zipCode}
                     onChange={(e) => handleInputChange('zipCode', e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.zipCode ? 'border-red-500' : 'border-gray-300'
+                    className={`form-input ${
+                      errors.zipCode ? 'border-red-500' : ''
                     }`}
                   />
                   {errors.zipCode && (
@@ -497,7 +503,7 @@ export default function AddNewPropertyPage() {
                       handleInputChange('address', e.target.value + ', Chennai');
                     }
                   }}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input"
                 >
                   <option value="">Select area or type custom address above</option>
                   {CHENNAI_LOCATIONS.map(location => (
@@ -519,7 +525,7 @@ export default function AddNewPropertyPage() {
                     placeholder="13.0827"
                     value={formData.latitude}
                     onChange={(e) => handleInputChange('latitude', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input"
                   />
                   <p className="mt-1 text-xs text-gray-500">For map display</p>
                 </div>
@@ -534,7 +540,7 @@ export default function AddNewPropertyPage() {
                     placeholder="80.2707"
                     value={formData.longitude}
                     onChange={(e) => handleInputChange('longitude', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input"
                   />
                   <p className="mt-1 text-xs text-gray-500">For map display</p>
                 </div>
@@ -555,8 +561,8 @@ export default function AddNewPropertyPage() {
                     <select
                       value={formData.bedrooms}
                       onChange={(e) => handleInputChange('bedrooms', e.target.value)}
-                      className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                        errors.bedrooms ? 'border-red-500' : 'border-gray-300'
+                      className={`form-input pl-12 ${
+                        errors.bedrooms ? 'border-red-500' : ''
                       }`}
                     >
                       {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
@@ -581,8 +587,8 @@ export default function AddNewPropertyPage() {
                     <select
                       value={formData.bathrooms}
                       onChange={(e) => handleInputChange('bathrooms', e.target.value)}
-                      className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                        errors.bathrooms ? 'border-red-500' : 'border-gray-300'
+                      className={`form-input pl-12 ${
+                        errors.bathrooms ? 'border-red-500' : ''
                       }`}
                     >
                       {[1, 2, 3, 4, 5, 6].map(num => (
@@ -611,8 +617,8 @@ export default function AddNewPropertyPage() {
                       placeholder="1200"
                       value={formData.squareFeet}
                       onChange={(e) => handleInputChange('squareFeet', e.target.value)}
-                      className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                        errors.squareFeet ? 'border-red-500' : 'border-gray-300'
+                      className={`form-input pl-12 ${
+                        errors.squareFeet ? 'border-red-500' : ''
                       }`}
                     />
                   </div>
@@ -637,7 +643,7 @@ export default function AddNewPropertyPage() {
                       max="2025"
                       value={formData.yearBuilt}
                       onChange={(e) => handleInputChange('yearBuilt', e.target.value)}
-                      className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="form-input pl-12"
                     />
                   </div>
                 </div>
@@ -652,7 +658,7 @@ export default function AddNewPropertyPage() {
                   <select
                     value={formData.parking}
                     onChange={(e) => handleInputChange('parking', e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input pl-12"
                   >
                     <option value="0">No Parking</option>
                     {[1, 2, 3, 4, 5].map(num => (
@@ -681,8 +687,8 @@ export default function AddNewPropertyPage() {
                         onClick={() => handleAmenityToggle(amenity.id)}
                         className={`flex items-center space-x-3 p-4 border-2 rounded-lg transition-all ${
                           isSelected 
-                            ? 'border-blue-500 bg-blue-50 text-blue-700' 
-                            : 'border-gray-200 hover:border-gray-300 text-gray-700'
+                            ? 'border-brown-500 bg-brown-50 text-brown-700' 
+                            : 'border-gray-200 hover:border-brown-300 text-gray-700'
                         }`}
                       >
                         <Icon className="h-5 w-5" />
@@ -741,7 +747,7 @@ export default function AddNewPropertyPage() {
               {currentStep > 1 && (
                 <button
                   onClick={prevStep}
-                  className="flex items-center space-x-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center space-x-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-brown-50 transition-colors"
                 >
                   <span>Previous</span>
                 </button>
@@ -756,7 +762,7 @@ export default function AddNewPropertyPage() {
               {currentStep < totalSteps ? (
                 <button
                   onClick={nextStep}
-                  className="flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="btn-primary flex items-center space-x-2"
                 >
                   <span>Next</span>
                 </button>
@@ -764,7 +770,7 @@ export default function AddNewPropertyPage() {
                 <button
                   onClick={handleSubmit}
                   disabled={saving}
-                  className="flex items-center space-x-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
+                  className="btn-primary flex items-center space-x-2 disabled:opacity-50"
                 >
                   {saving ? (
                     <>

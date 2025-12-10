@@ -140,10 +140,10 @@ export default function AdminInquiriesPage() {
               <span className="text-xl font-bold text-gray-900">🏠 Admin - Inquiries</span>
             </Link>
             <nav className="flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/" className="text-gray-700 hover:text-brown-600 font-medium">
                 Home
               </Link>
-              <Link href="/admin" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/admin" className="text-gray-700 hover:text-brown-600 font-medium">
                 Admin
               </Link>
               <button className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
@@ -180,7 +180,7 @@ export default function AdminInquiriesPage() {
                   placeholder="Search inquiries..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input pl-10 pr-4 py-2 w-full"
                 />
               </div>
             </div>
@@ -236,7 +236,7 @@ export default function AdminInquiriesPage() {
 
           {loading ? (
             <div className="px-6 py-12 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 mx-auto" style={{ borderColor: 'var(--brown-600)' }}></div>
               <p className="mt-2 text-gray-600">Loading inquiries...</p>
             </div>
           ) : error ? (
@@ -244,7 +244,7 @@ export default function AdminInquiriesPage() {
               <p className="text-red-600">{error}</p>
               <button 
                 onClick={fetchInquiries}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                className="btn-primary mt-4 px-4 py-2"
               >
                 Try Again
               </button>
@@ -298,7 +298,8 @@ export default function AdminInquiriesPage() {
                             </div>
                             <Link 
                               href={`/properties/${inquiry.propertyId}`}
-                              className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                              className="text-sm font-medium hover:underline"
+                              style={{ color: 'var(--brown-600)' }}
                             >
                               {inquiry.propertyTitle || `Property #${inquiry.propertyId}`}
                             </Link>
@@ -327,7 +328,7 @@ export default function AdminInquiriesPage() {
                       <select
                         value={inquiry.status}
                         onChange={(e) => handleStatusUpdate(inquiry.id, e.target.value)}
-                        className="text-sm border border-gray-300 rounded px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="form-input text-sm px-3 py-1"
                       >
                         <option value="pending">Pending</option>
                         <option value="responded">Responded</option>

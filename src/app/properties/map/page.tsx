@@ -73,8 +73,8 @@ export default function MapViewPage() {
                 >
                   <List className="h-4 w-4" />
                 </Link>
-                <button className="p-2 bg-blue-100 rounded" title="Map View">
-                  <MapPin className="h-4 w-4 text-blue-600" />
+                <button className="p-2 rounded" style={{ backgroundColor: 'var(--brown-100)' }} title="Map View">
+                  <MapPin className="h-4 w-4" style={{ color: 'var(--brown-600)' }} />
                 </button>
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function MapViewPage() {
                     <div
                       key={property.id}
                       className={`p-4 cursor-pointer hover:bg-gray-50 transition-colors ${
-                        isSelected ? 'bg-blue-50 border-r-4 border-blue-500' : ''
+                        isSelected ? 'border-r-4' : ''
                       }`}
                       onClick={() => handlePropertyClick(property)}
                     >
@@ -135,7 +135,7 @@ export default function MapViewPage() {
                             {property.address}, {property.city}
                           </p>
                           <div className="flex justify-between items-center mt-2">
-                            <span className="text-sm font-semibold text-blue-600">
+                            <span className="text-sm font-semibold" style={{ color: 'var(--brown-600)' }}>
                               {formatPrice(property.price)}
                             </span>
                             <span className="text-xs text-gray-500">
@@ -155,7 +155,7 @@ export default function MapViewPage() {
         {/* Map Area */}
         <div className="flex-1 relative">
           {/* Chennai Interactive Map */}
-          <div className="w-full h-full bg-gradient-to-br from-blue-100 via-green-50 to-yellow-50 relative">
+          <div className="w-full h-full bg-gradient-warm relative">
             {/* Map Background */}
             <div className="absolute inset-0">
               <svg className="w-full h-full opacity-30" viewBox="0 0 800 600">
@@ -197,9 +197,12 @@ export default function MapViewPage() {
                   onClick={() => handlePropertyClick(property)}
                 >
                   <div className={`relative ${isSelected ? 'animate-bounce' : ''}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg ${
-                      isSelected ? 'bg-red-600' : 'bg-blue-600 hover:bg-blue-700'
-                    }`}>
+                    <div 
+                      className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg transition-transform ${
+                        isSelected ? 'bg-red-600' : 'hover:scale-110'
+                      }`}
+                      style={!isSelected ? { backgroundColor: 'var(--brown-600)' } : {}}
+                    >
                       {index + 1}
                     </div>
                     {isSelected && (
@@ -211,12 +214,13 @@ export default function MapViewPage() {
                           {property.address}, {property.city}
                         </p>
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-bold text-blue-600">
+                          <span className="text-sm font-bold" style={{ color: 'var(--brown-600)' }}>
                             {formatPrice(property.price)}
                           </span>
                           <Link 
                             href={`/properties/${property.id}`}
-                            className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                            className="text-xs text-white px-2 py-1 rounded transition-all duration-200 hover:scale-105"
+                            style={{ backgroundColor: 'var(--brown-600)' }}
                           >
                             View Details
                           </Link>
@@ -245,7 +249,7 @@ export default function MapViewPage() {
               <h4 className="font-medium text-gray-900 mb-2 text-sm">Legend</h4>
               <div className="space-y-2 text-xs">
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-blue-600 rounded-full"></div>
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: 'var(--brown-600)' }}></div>
                   <span>Available Properties</span>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -253,7 +257,7 @@ export default function MapViewPage() {
                   <span>Selected Property</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-1 bg-blue-500"></div>
+                  <div className="w-4 h-1" style={{ backgroundColor: 'var(--brown-500)' }}></div>
                   <span>Marina Beach</span>
                 </div>
                 <div className="flex items-center space-x-2">

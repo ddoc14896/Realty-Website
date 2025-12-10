@@ -85,13 +85,13 @@ export default function AdminPage() {
               <span className="text-xl font-bold text-gray-900">🏠 Realty Website - Admin</span>
             </Link>
             <nav className="flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/" className="text-gray-700 font-medium" style={{ '&:hover': { color: 'var(--brown-600)' } }}>
                 Home
               </Link>
-              <Link href="/properties" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/properties" className="text-gray-700 font-medium" style={{ '&:hover': { color: 'var(--brown-600)' } }}>
                 Properties
               </Link>
-              <Link href="/admin" className="text-blue-600 font-medium">
+              <Link href="/admin" className="font-medium" style={{ color: 'var(--brown-600)' }}>
                 Admin
               </Link>
               <button className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
@@ -108,7 +108,7 @@ export default function AdminPage() {
           <div className="w-64 bg-white rounded-lg shadow-md p-6">
             <h2 className="text-lg font-semibold mb-6">Admin Panel</h2>
             <nav className="space-y-2">
-              <Link href="/admin" className="flex items-center space-x-3 px-3 py-2 bg-blue-100 text-blue-700 rounded-lg">
+              <Link href="/admin" className="flex items-center space-x-3 px-3 py-2 rounded-lg" style={{ backgroundColor: 'var(--brown-100)', color: 'var(--brown-700)' }}>
                 <BarChart3 className="h-5 w-5" />
                 <span>Dashboard</span>
               </Link>
@@ -147,7 +147,7 @@ export default function AdminPage() {
                       {loading ? '...' : stats.totalProperties}
                     </p>
                   </div>
-                  <Home className="h-8 w-8 text-blue-600" />
+                  <Home className="h-8 w-8" style={{ color: 'var(--brown-600)' }} />
                 </div>
               </div>
               
@@ -192,7 +192,7 @@ export default function AdminPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
               <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
               <div className="grid md:grid-cols-3 gap-4">
-                <Link href="/admin/properties/new" className="flex items-center space-x-3 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <Link href="/admin/properties/new" className="btn-primary flex items-center space-x-3 px-4 py-3">
                   <Plus className="h-5 w-5" />
                   <span>Add New Property</span>
                 </Link>
@@ -211,7 +211,7 @@ export default function AdminPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold">Recent Properties</h3>
-                <Link href="/admin/properties" className="text-blue-600 hover:text-blue-800">
+                <Link href="/admin/properties" className="font-medium hover:underline" style={{ color: 'var(--brown-600)' }}>
                   View All
                 </Link>
               </div>
@@ -265,7 +265,7 @@ export default function AdminPage() {
                             </div>
                           </td>
                           <td className="py-3">
-                            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                            <span className="px-2 py-1 rounded text-xs" style={{ backgroundColor: 'var(--brown-100)', color: 'var(--brown-800)' }}>
                               {property.propertyType}
                             </span>
                           </td>
@@ -281,7 +281,7 @@ export default function AdminPage() {
                           </td>
                           <td className="py-3">
                             <div className="flex space-x-2">
-                              <Link href={`/properties/${property.id}`} className="text-blue-600 hover:text-blue-800">
+                              <Link href={`/properties/${property.id}`} className="font-medium hover:underline" style={{ color: 'var(--brown-600)' }}>
                                 <Eye className="h-4 w-4" />
                               </Link>
                               <Link href={`/admin/properties/${property.id}/edit`} className="text-yellow-600 hover:text-yellow-800">
@@ -304,14 +304,14 @@ export default function AdminPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold">Recent Inquiries</h3>
-                <Link href="/admin/inquiries" className="text-blue-600 hover:text-blue-800">
+                <Link href="/admin/inquiries" className="font-medium hover:underline" style={{ color: 'var(--brown-600)' }}>
                   View All
                 </Link>
               </div>
               
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="border-l-4 border-blue-500 pl-4 py-3 bg-blue-50 rounded-r">
+                  <div key={i} className="border-l-4 pl-4 py-3 rounded-r" style={{ borderColor: 'var(--brown-500)', backgroundColor: 'var(--brown-50)' }}>
                     <div className="flex justify-between items-start">
                       <div>
                         <p className="font-medium">John Doe {i}</p>

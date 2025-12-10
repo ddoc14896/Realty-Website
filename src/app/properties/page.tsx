@@ -154,160 +154,209 @@ export default function PropertiesPage() {
     const primaryImage = property.images.find(img => img.isPrimary) || property.images[0];
     
     return (
-      <div key={property.id} className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow ${
+      <div key={property.id} className={`property-card group ${
         viewMode === 'list' ? 'flex' : ''
       }`}>
-        <div className={`relative ${viewMode === 'list' ? 'w-64 flex-shrink-0' : ''}`}>
-          <div className={`${viewMode === 'list' ? 'h-40' : 'h-48'} relative overflow-hidden group cursor-pointer bg-gray-200`}>
+        <div className={`relative ${viewMode === 'list' ? 'w-72 flex-shrink-0' : ''}`}>
+          <div className={`${viewMode === 'list' ? 'h-48' : 'h-56'} relative overflow-hidden cursor-pointer`} 
+               style={{ backgroundColor: 'var(--brown-100)' }}>
             <img 
               src={getPropertyImage(property)}
               alt={`${property.title} - ${property.address}`}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               loading="lazy"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = getFallbackImage(property.propertyType);
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
           
           <div className="absolute top-4 left-4">
-            <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-medium">
-              {property.propertyType}
+            <span className="property-badge text-xs px-3 py-1">
+              ✨ {property.propertyType}
             </span>
           </div>
           
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 z-10">
             <FavoriteButton propertyId={property.id} size="sm" showTooltip />
           </div>
           
           <div className="absolute bottom-4 left-4">
-            <span className="bg-blue-600 text-white px-3 py-1 rounded text-sm font-medium shadow-lg">
+            <div className="property-badge text-lg font-bold px-4 py-2 shadow-xl">
               {formatPrice(property.price)}
-            </span>
+            </div>
           </div>
           
           <div className="absolute bottom-4 right-4">
-            <span className="bg-black bg-opacity-70 text-white px-2 py-1 rounded text-xs">
+            <span className="px-3 py-1 rounded-xl text-xs font-semibold text-white shadow-lg"
+                  style={{ backgroundColor: 'var(--brown-700)' }}>
               📸 {property.images?.length || 0}
             </span>
           </div>
         </div>
         
-        <div className="p-4 flex-1">
-          <h3 className="font-semibold text-lg mb-2 line-clamp-2">{property.title}</h3>
-          <p className="text-gray-600 text-sm mb-3 flex items-center">
-            <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
-            <span className="line-clamp-1">
-              {property.address}, {property.city}, {property.state} {property.zipCode}
-            </span>
-          </p>
+        <div className="p-6 flex-1">
+          <div className="mb-4">
+            <h3 className="font-bold text-xl mb-3 line-clamp-2 text-gradient">{property.title}</h3>
+            <div className="flex items-start space-x-2">
+              <MapPin className="h-4 w-4 mt-1 flex-shrink-0" style={{ color: 'var(--brown-500)' }} />
+              <span className="text-sm line-clamp-2 font-medium" style={{ color: 'var(--brown-600)' }}>
+                {property.address}, {property.city}, {property.state} {property.zipCode}
+              </span>
+            </div>
+          </div>
           
-          <div className={`flex ${viewMode === 'list' ? 'flex-wrap' : 'justify-between'} items-center text-sm mb-4 ${
-            viewMode === 'list' ? 'gap-4' : ''
-          }`}>
-            <div className="flex items-center text-gray-600">
-              <span className="bg-gray-100 px-2 py-1 rounded text-xs">🛏️ {property.bedrooms}</span>
+          <div className={`grid ${viewMode === 'list' ? 'grid-cols-4 gap-3' : 'grid-cols-3 gap-2'} mb-6`}>
+            <div className="text-center p-3 rounded-xl" style={{ backgroundColor: 'var(--brown-50)' }}>
+              <div className="text-lg font-bold" style={{ color: 'var(--brown-800)' }}>{property.bedrooms}</div>
+              <div className="text-xs font-medium" style={{ color: 'var(--brown-600)' }}>🛏️ Beds</div>
             </div>
-            <div className="flex items-center text-gray-600">
-              <span className="bg-gray-100 px-2 py-1 rounded text-xs">🚿 {property.bathrooms}</span>
+            <div className="text-center p-3 rounded-xl" style={{ backgroundColor: 'var(--brown-50)' }}>
+              <div className="text-lg font-bold" style={{ color: 'var(--brown-800)' }}>{property.bathrooms}</div>
+              <div className="text-xs font-medium" style={{ color: 'var(--brown-600)' }}>🛁 Baths</div>
             </div>
-            <div className="flex items-center text-gray-600">
-              <span className="bg-gray-100 px-2 py-1 rounded text-xs">📐 {property.squareFeet?.toLocaleString()}</span>
+            <div className="text-center p-3 rounded-xl" style={{ backgroundColor: 'var(--brown-50)' }}>
+              <div className="text-lg font-bold" style={{ color: 'var(--brown-800)' }}>
+                {(property.squareFeet / 1000).toFixed(1)}K
+              </div>
+              <div className="text-xs font-medium" style={{ color: 'var(--brown-600)' }}>📐 SqFt</div>
             </div>
             {viewMode === 'list' && (
-              <div className="flex items-center">
-                <span className="text-blue-600 font-medium text-xs bg-blue-50 px-2 py-1 rounded">{property.propertyType}</span>
+              <div className="text-center p-3 rounded-xl" style={{ backgroundColor: 'var(--cream)' }}>
+                <div className="text-sm font-bold" style={{ color: 'var(--brown-800)' }}>Premium</div>
+                <div className="text-xs font-medium" style={{ color: 'var(--brown-600)' }}>✨ Type</div>
               </div>
             )}
           </div>
           
           <Link 
             href={`/properties/${property.id}`}
-            className={`bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-center block ${
-              viewMode === 'list' ? 'inline-block w-auto' : 'w-full'
+            className={`btn-primary text-center transition-all duration-300 ${
+              viewMode === 'list' ? 'inline-block px-8 py-3' : 'w-full block'
             }`}
           >
-            View Details
+            🏠 Explore Property
           </Link>
         </div>
       </div>
     );
   };
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-warm bg-pattern">
       <Header />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Find Properties</h1>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12 fade-in">
+          <h1 className="heading-section">Discover Premium Properties</h1>
+          <p className="text-lg text-warm max-w-2xl mx-auto leading-relaxed">
+            Explore our curated collection of exceptional homes and investment opportunities
+          </p>
+        </div>
         
         {/* Search Component */}
         <PropertySearch onSearch={handleSearch} isLoading={loading} />
 
-        {/* View Toggle and Results Count */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="text-gray-600">
-            {loading ? (
-              <span>Searching properties...</span>
-            ) : (
-              <span>
-                Showing <span className="font-semibold">{properties.length}</span> of{' '}
-                <span className="font-semibold">{pagination.totalResults}</span> properties
-              </span>
-            )}
-          </div>
-          <div className="flex items-center space-x-4">
-            <Link href="/properties/map" className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 bg-blue-50 text-blue-600 border-blue-300">
-              <MapPin className="h-4 w-4" />
-              <span>Map View</span>
-            </Link>
-            <div className="flex border border-gray-300 rounded-lg">
-              <button 
-                onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-l-lg ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
-              >
-                <Grid className="h-4 w-4" />
-              </button>
-              <button 
-                onClick={() => setViewMode('list')}
-                className={`p-2 rounded-r-lg ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
-              >
-                <List className="h-4 w-4" />
-              </button>
+        {/* Enhanced View Toggle and Results Count */}
+        <div className="card p-6 mb-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-warm">
+              {loading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 rounded-full animate-pulse" style={{ backgroundColor: 'var(--soft-gold)' }}></div>
+                  <span className="font-medium">Discovering properties...</span>
+                </div>
+              ) : (
+                <div className="text-center md:text-left">
+                  <span className="text-lg font-bold" style={{ color: 'var(--brown-800)' }}>
+                    {properties.length} Premium Properties
+                  </span>
+                  <span className="block md:inline text-sm">
+                    {' '}of <span className="font-semibold" style={{ color: 'var(--soft-gold)' }}>{pagination.totalResults}</span> available
+                  </span>
+                </div>
+              )}
+            </div>
+            <div className="flex items-center space-x-4">
+              <Link href="/properties/map" className="btn-accent flex items-center space-x-2 text-sm">
+                <MapPin className="h-4 w-4" />
+                <span>🗺️ Map View</span>
+              </Link>
+              <div className="flex rounded-xl overflow-hidden border-2" style={{ borderColor: 'var(--brown-300)' }}>
+                <button 
+                  onClick={() => setViewMode('grid')}
+                  className={`px-4 py-2 transition-all duration-300 ${
+                    viewMode === 'grid' 
+                      ? 'text-white' 
+                      : 'hover:bg-gradient-warm'
+                  }`}
+                  style={{
+                    backgroundColor: viewMode === 'grid' ? 'var(--brown-600)' : 'transparent',
+                    color: viewMode === 'grid' ? 'white' : 'var(--brown-700)'
+                  }}
+                >
+                  <Grid className="h-4 w-4" />
+                </button>
+                <button 
+                  onClick={() => setViewMode('list')}
+                  className={`px-4 py-2 transition-all duration-300 ${
+                    viewMode === 'list' 
+                      ? 'text-white' 
+                      : 'hover:bg-gradient-warm'
+                  }`}
+                  style={{
+                    backgroundColor: viewMode === 'list' ? 'var(--brown-600)' : 'transparent',
+                    color: viewMode === 'list' ? 'white' : 'var(--brown-700)'
+                  }}
+                >
+                  <List className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Loading State */}
+        {/* Enhanced Loading State */}
         {loading && (
-          <div className={`${viewMode === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3' : 'space-y-4'} gap-6`}>
+          <div className={`${viewMode === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3' : 'space-y-6'} gap-8`}>
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className={`bg-white rounded-lg shadow-md overflow-hidden animate-pulse ${
+              <div key={i} className={`property-card animate-pulse ${
                 viewMode === 'list' ? 'flex' : ''
               }`}>
-                <div className={`bg-gray-200 ${viewMode === 'list' ? 'w-64 h-40' : 'h-48'}`}></div>
-                <div className="p-4 space-y-3 flex-1">
-                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                  <div className="h-3 bg-gray-200 rounded w-full"></div>
-                  <div className="h-8 bg-gray-200 rounded"></div>
+                <div className={`${viewMode === 'list' ? 'w-72 h-48' : 'h-56'}`} 
+                     style={{ backgroundColor: 'var(--brown-200)' }}></div>
+                <div className="p-6 space-y-4 flex-1">
+                  <div className="h-5 rounded-xl w-3/4" style={{ backgroundColor: 'var(--brown-200)' }}></div>
+                  <div className="h-4 rounded-xl w-1/2" style={{ backgroundColor: 'var(--brown-100)' }}></div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="h-12 rounded-xl" style={{ backgroundColor: 'var(--brown-100)' }}></div>
+                    <div className="h-12 rounded-xl" style={{ backgroundColor: 'var(--brown-100)' }}></div>
+                    <div className="h-12 rounded-xl" style={{ backgroundColor: 'var(--brown-100)' }}></div>
+                  </div>
+                  <div className="h-12 rounded-xl" style={{ backgroundColor: 'var(--brown-200)' }}></div>
                 </div>
               </div>
             ))}
           </div>
         )}
 
-        {/* Error State */}
+        {/* Enhanced Error State */}
         {error && !loading && (
-          <div className="text-center py-12">
-            <p className="text-red-600 text-lg">{error}</p>
-            <button 
-              onClick={() => fetchProperties(currentFilters)} 
-              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-            >
-              Try Again
-            </button>
+          <div className="text-center py-16">
+            <div className="card max-w-md mx-auto p-8">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center"
+                   style={{ backgroundColor: 'var(--brown-100)' }}>
+                <span className="text-2xl">⚠️</span>
+              </div>
+              <p className="text-lg mb-6" style={{ color: 'var(--brown-700)' }}>{error}</p>
+              <button 
+                onClick={() => fetchProperties(currentFilters)} 
+                className="btn-primary"
+              >
+                🔄 Try Again
+              </button>
+            </div>
           </div>
         )}
 

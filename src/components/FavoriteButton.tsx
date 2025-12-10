@@ -64,20 +64,32 @@ export default function FavoriteButton({
       disabled={loading}
       className={`
         ${buttonSizeClasses[size]}
-        bg-white rounded-full shadow-md hover:bg-gray-50 transition-all duration-200 
+        rounded-full shadow-lg backdrop-blur-md transition-all duration-300 
         ${loading ? 'opacity-50 cursor-wait' : 'hover:scale-110'}
-        ${isFav ? 'bg-red-50 hover:bg-red-100' : ''}
+        ${isFav 
+          ? 'hover:shadow-xl' 
+          : 'hover:shadow-xl'
+        }
         ${className}
       `}
+      style={{
+        backgroundColor: isFav 
+          ? 'rgba(212, 175, 55, 0.9)' // Gold background for favorited
+          : 'rgba(255, 255, 255, 0.9)', // White background for unfavorited
+        border: `2px solid ${isFav ? 'var(--soft-gold)' : 'var(--brown-300)'}`
+      }}
       title={showTooltip ? (isFav ? 'Remove from favorites' : 'Add to favorites') : undefined}
     >
       <Heart 
         className={`
           ${sizeClasses[size]} 
-          transition-colors duration-200
-          ${isFav ? 'text-red-500 fill-red-500' : 'text-gray-600 hover:text-red-500'}
+          transition-all duration-300
           ${loading ? 'animate-pulse' : ''}
-        `} 
+        `}
+        style={{
+          color: isFav ? 'white' : 'var(--brown-600)',
+          fill: isFav ? 'white' : 'transparent'
+        }}
       />
     </button>
   );

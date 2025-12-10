@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased bg-gray-50">
+      <body className="font-sans antialiased bg-gradient-warm">
         <FavoritesProvider>
           {children}
         </FavoritesProvider>

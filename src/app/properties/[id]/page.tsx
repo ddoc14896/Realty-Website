@@ -98,12 +98,16 @@ export default function PropertyDetailPage() {
 
   if (!property) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Property Not Found</h1>
-          <p className="text-gray-600 mb-8">The property you're looking for doesn't exist.</p>
-          <Link href="/properties" className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
-            Browse Properties
+      <div className="min-h-screen bg-gradient-warm flex items-center justify-center">
+        <div className="card max-w-md mx-auto p-12 text-center">
+          <div className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center"
+               style={{ backgroundColor: 'var(--brown-100)' }}>
+            <span className="text-3xl">🏠</span>
+          </div>
+          <h1 className="text-3xl font-bold mb-4 text-gradient">Property Not Found</h1>
+          <p className="text-warm mb-8 leading-relaxed">The property you're looking for doesn't exist or may have been removed.</p>
+          <Link href="/properties" className="btn-primary">
+            🔍 Browse Properties
           </Link>
         </div>
       </div>
@@ -113,53 +117,69 @@ export default function PropertyDetailPage() {
   const primaryImage = property.images.find((img: any) => img.isPrimary) || property.images[0];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-warm bg-pattern">
       <Header />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Breadcrumb */}
-        <nav className="mb-6">
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-blue-600">Home</Link>
-            <span>/</span>
-            <Link href="/properties" className="hover:text-blue-600">Properties</Link>
-            <span>/</span>
-            <span className="text-gray-900">{property.title}</span>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Enhanced Breadcrumb */}
+        <nav className="mb-8">
+          <div className="card p-4">
+            <div className="flex items-center space-x-3 text-sm">
+              <Link href="/" className="nav-link text-sm">🏠 Home</Link>
+              <span style={{ color: 'var(--brown-400)' }}>→</span>
+              <Link href="/properties" className="nav-link text-sm">🏘️ Properties</Link>
+              <span style={{ color: 'var(--brown-400)' }}>→</span>
+              <span className="font-semibold" style={{ color: 'var(--brown-800)' }}>{property.title}</span>
+            </div>
           </div>
         </nav>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Image Gallery */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            {/* Enhanced Image Gallery */}
+            <div className="property-card overflow-hidden">
               <div className="relative">
-                <div className="h-96 bg-gray-100 overflow-hidden">
+                <div className="h-[32rem] overflow-hidden" style={{ backgroundColor: 'var(--brown-100)' }}>
                   <img 
                     src={`https://picsum.photos/800/600?random=${property.id}`}
                     alt={primaryImage?.alt || `Property ${property.id} main image`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = `https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Property+Image`;
+                      target.src = `https://via.placeholder.com/800x600/a08875/FFFFFF?text=Property+Image`;
                     }}
                   />
                 </div>
                 
-                {/* Action buttons */}
-                <div className="absolute top-4 right-4 flex space-x-2">
-                  <button className="bg-white p-3 rounded-full shadow-md hover:bg-gray-50">
-                    <Heart className="h-5 w-5 text-red-500" />
+                {/* Enhanced Action buttons */}
+                <div className="absolute top-6 right-6 flex space-x-3">
+                  <button 
+                    className="p-4 rounded-xl shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.9)' }}
+                  >
+                    <Heart className="h-5 w-5" style={{ color: 'var(--brown-600)' }} />
                   </button>
-                  <button className="bg-white p-3 rounded-full shadow-md hover:bg-gray-50">
-                    <Share2 className="h-5 w-5 text-gray-600" />
+                  <button 
+                    className="p-4 rounded-xl shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.9)' }}
+                  >
+                    <Share2 className="h-5 w-5" style={{ color: 'var(--brown-600)' }} />
                   </button>
                 </div>
 
-                {/* Price badge */}
-                <div className="absolute bottom-4 left-4">
-                  <span className="bg-blue-600 text-white px-4 py-2 rounded-lg text-xl font-bold">
+                {/* Enhanced Price badge */}
+                <div className="absolute bottom-6 left-6">
+                  <div className="property-badge px-6 py-3 text-xl font-bold shadow-2xl">
                     {formatPrice(property.price)}
+                  </div>
+                </div>
+
+                {/* Property type badge */}
+                <div className="absolute top-6 left-6">
+                  <span className="px-4 py-2 rounded-xl text-sm font-semibold text-white shadow-lg"
+                        style={{ backgroundColor: 'var(--brown-700)' }}>
+                    ✨ {property.propertyType}
                   </span>
                 </div>
               </div>
@@ -184,7 +204,7 @@ export default function PropertyDetailPage() {
                     ))}
                   </div>
                   {property.images.length > 5 && (
-                    <button className="mt-3 text-blue-600 text-sm hover:text-blue-700 font-medium">
+                    <button className="mt-3 text-sm font-medium hover:underline transition-colors" style={{ color: 'var(--brown-600)' }}>
                       View all {property.images.length} photos →
                     </button>
                   )}
@@ -193,64 +213,64 @@ export default function PropertyDetailPage() {
             </div>
 
             {/* Property Details */}
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-gradient-warm rounded-xl shadow-lg p-8">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">{property.title}</h1>
-                  <p className="text-lg text-gray-600 flex items-center">
+                  <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--brown-800)' }}>{property.title}</h1>
+                  <p className="text-lg flex items-center" style={{ color: 'var(--brown-600)' }}>
                     <MapPin className="h-5 w-5 mr-2" />
                     {property.address}, {property.city}, {property.state} {property.zipCode}
                   </p>
                 </div>
                 <div className="text-right">
-                  <span className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                    {property.status}
+                  <span className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">
+                    ✨ {property.status}
                   </span>
                 </div>
               </div>
 
               {/* Key Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <Bed className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-900">{property.bedrooms}</div>
-                  <div className="text-sm text-gray-600">Bedrooms</div>
+                <div className="text-center p-6 rounded-xl shadow-sm" style={{ backgroundColor: 'var(--brown-50)' }}>
+                  <Bed className="h-8 w-8 mx-auto mb-3" style={{ color: 'var(--brown-600)' }} />
+                  <div className="text-2xl font-bold" style={{ color: 'var(--brown-800)' }}>{property.bedrooms}</div>
+                  <div className="text-sm font-medium" style={{ color: 'var(--brown-600)' }}>🛏️ Bedrooms</div>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <Bath className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-900">{property.bathrooms}</div>
-                  <div className="text-sm text-gray-600">Bathrooms</div>
+                <div className="text-center p-6 rounded-xl shadow-sm" style={{ backgroundColor: 'var(--brown-50)' }}>
+                  <Bath className="h-8 w-8 mx-auto mb-3" style={{ color: 'var(--brown-600)' }} />
+                  <div className="text-2xl font-bold" style={{ color: 'var(--brown-800)' }}>{property.bathrooms}</div>
+                  <div className="text-sm font-medium" style={{ color: 'var(--brown-600)' }}>🚿 Bathrooms</div>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <Square className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-900">{property.squareFeet?.toLocaleString()}</div>
-                  <div className="text-sm text-gray-600">Sq Ft</div>
+                <div className="text-center p-6 rounded-xl shadow-sm" style={{ backgroundColor: 'var(--brown-50)' }}>
+                  <Square className="h-8 w-8 mx-auto mb-3" style={{ color: 'var(--brown-600)' }} />
+                  <div className="text-2xl font-bold" style={{ color: 'var(--brown-800)' }}>{property.squareFeet?.toLocaleString()}</div>
+                  <div className="text-sm font-medium" style={{ color: 'var(--brown-600)' }}>📏 Sq Ft</div>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <Calendar className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-900">{property.yearBuilt}</div>
-                  <div className="text-sm text-gray-600">Year Built</div>
+                <div className="text-center p-6 rounded-xl shadow-sm" style={{ backgroundColor: 'var(--brown-50)' }}>
+                  <Calendar className="h-8 w-8 mx-auto mb-3" style={{ color: 'var(--brown-600)' }} />
+                  <div className="text-2xl font-bold" style={{ color: 'var(--brown-800)' }}>{property.yearBuilt}</div>
+                  <div className="text-sm font-medium" style={{ color: 'var(--brown-600)' }}>🏠 Year Built</div>
                 </div>
               </div>
 
               {/* Description */}
-              <div className="mb-6">
-                <h2 className="text-xl font-semibold mb-3">Description</h2>
-                <p className="text-gray-700 leading-relaxed">{property.description}</p>
+              <div className="mb-8">
+                <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--brown-800)' }}>📝 Description</h2>
+                <p className="leading-relaxed" style={{ color: 'var(--brown-700)' }}>{property.description}</p>
               </div>
 
               {/* Features */}
               {property.features && (
-                <div className="mb-6">
-                  <h2 className="text-xl font-semibold mb-3">Features & Amenities</h2>
+                <div className="mb-8">
+                  <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--brown-800)' }}>✨ Features & Amenities</h2>
                   <div className="grid md:grid-cols-2 gap-4">
                     {property.features.amenities && (
                       <div>
-                        <h3 className="font-medium mb-2">Amenities</h3>
-                        <ul className="space-y-1">
+                        <h3 className="font-semibold mb-3" style={{ color: 'var(--brown-700)' }}>🏠 Amenities</h3>
+                        <ul className="space-y-2">
                           {property.features.amenities.map((amenity: string, index: number) => (
-                            <li key={index} className="flex items-center text-gray-700">
-                              <span className="w-2 h-2 bg-blue-600 rounded-full mr-2"></span>
+                            <li key={index} className="flex items-center" style={{ color: 'var(--brown-700)' }}>
+                              <span className="w-2 h-2 rounded-full mr-3" style={{ backgroundColor: 'var(--brown-600)' }}></span>
                               {amenity}
                             </li>
                           ))}
@@ -259,21 +279,21 @@ export default function PropertyDetailPage() {
                     )}
                     <div className="space-y-2">
                       {property.features.parking && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Parking:</span>
-                          <span className="font-medium">{property.features.parking}</span>
+                        <div className="flex justify-between py-2">
+                          <span style={{ color: 'var(--brown-600)' }}>🏿 Parking:</span>
+                          <span className="font-semibold" style={{ color: 'var(--brown-800)' }}>{property.features.parking}</span>
                         </div>
                       )}
                       {property.features.heating && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Heating:</span>
-                          <span className="font-medium">{property.features.heating}</span>
+                        <div className="flex justify-between py-2">
+                          <span style={{ color: 'var(--brown-600)' }}>🔥 Heating:</span>
+                          <span className="font-semibold" style={{ color: 'var(--brown-800)' }}>{property.features.heating}</span>
                         </div>
                       )}
                       {property.features.flooring && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Flooring:</span>
-                          <span className="font-medium">{property.features.flooring}</span>
+                        <div className="flex justify-between py-2">
+                          <span style={{ color: 'var(--brown-600)' }}>🏠 Flooring:</span>
+                          <span className="font-semibold" style={{ color: 'var(--brown-800)' }}>{property.features.flooring}</span>
                         </div>
                       )}
                     </div>
@@ -283,8 +303,8 @@ export default function PropertyDetailPage() {
             </div>
 
             {/* Interactive Map */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4">Location & Neighborhood</h2>
+            <div className="bg-gradient-warm rounded-xl shadow-lg p-8">
+              <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--brown-800)' }}>🗺️ Location & Neighborhood</h2>
               <InteractiveMap
                 latitude={property.latitude}
                 longitude={property.longitude}
@@ -293,13 +313,13 @@ export default function PropertyDetailPage() {
                 className="h-80 w-full"
               />
               <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                <div className="bg-gray-50 p-3 rounded">
-                  <div className="font-medium text-gray-900">Neighborhood</div>
-                  <div className="text-gray-600">{property.city}, {property.state}</div>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--brown-50)' }}>
+                  <div className="font-semibold" style={{ color: 'var(--brown-800)' }}>🏠 Neighborhood</div>
+                  <div style={{ color: 'var(--brown-600)' }}>{property.city}, {property.state}</div>
                 </div>
-                <div className="bg-gray-50 p-3 rounded">
-                  <div className="font-medium text-gray-900">Postal Code</div>
-                  <div className="text-gray-600">{property.zipCode}</div>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--brown-50)' }}>
+                  <div className="font-semibold" style={{ color: 'var(--brown-800)' }}>📬 Postal Code</div>
+                  <div style={{ color: 'var(--brown-600)' }}>{property.zipCode}</div>
                 </div>
               </div>
             </div>
@@ -308,8 +328,8 @@ export default function PropertyDetailPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Contact Form */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-semibold mb-4">Interested in this property?</h3>
+            <div className="bg-gradient-warm rounded-xl shadow-lg p-8">
+              <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--brown-800)' }}>💬 Interested in this property?</h3>
               
               {submitMessage && (
                 <div className={`p-4 rounded-lg mb-4 ${
@@ -330,7 +350,7 @@ export default function PropertyDetailPage() {
                     onChange={handleInputChange}
                     placeholder="Full Name"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input p-4"
                   />
                 </div>
                 <div>
@@ -341,7 +361,7 @@ export default function PropertyDetailPage() {
                     onChange={handleInputChange}
                     placeholder="Email Address"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input p-4"
                   />
                 </div>
                 <div>
@@ -351,7 +371,7 @@ export default function PropertyDetailPage() {
                     value={inquiryForm.phone}
                     onChange={handleInputChange}
                     placeholder="Phone Number (optional)"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input p-4"
                   />
                 </div>
                 <div>
@@ -362,16 +382,16 @@ export default function PropertyDetailPage() {
                     onChange={handleInputChange}
                     placeholder="Message"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="form-input p-4 min-h-[120px] resize-vertical"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors ${
+                  className={`w-full py-3 px-4 font-semibold transition-colors ${
                     isSubmitting
-                      ? 'bg-gray-400 text-white cursor-not-allowed'
-                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                      ? 'bg-gray-400 text-white cursor-not-allowed rounded-lg'
+                      : 'btn-primary'
                   }`}
                 >
                   {isSubmitting ? 'Sending...' : 'Send Inquiry'}
@@ -380,61 +400,61 @@ export default function PropertyDetailPage() {
             </div>
 
             {/* Agent Info */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-semibold mb-4">Listed by</h3>
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-blue-600 text-xl font-bold">
+            <div className="bg-gradient-warm rounded-xl shadow-lg p-8">
+              <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--brown-800)' }}>👥 Listed by</h3>
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--brown-100)' }}>
+                  <span className="text-xl font-bold" style={{ color: 'var(--brown-600)' }}>
                     {property.owner.name.split(' ').map((n: string) => n[0]).join('')}
                   </span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">{property.owner.name}</h4>
-                  <p className="text-gray-600 text-sm">Licensed Real Estate Agent</p>
+                  <h4 className="font-bold" style={{ color: 'var(--brown-800)' }}>{property.owner.name}</h4>
+                  <p className="text-sm font-medium" style={{ color: 'var(--brown-600)' }}>✨ Licensed Real Estate Agent</p>
                 </div>
               </div>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <Phone className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-700">(555) 123-4567</span>
+                  <Phone className="h-5 w-5" style={{ color: 'var(--brown-500)' }} />
+                  <span style={{ color: 'var(--brown-700)' }}>(555) 123-4567</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Mail className="h-5 w-5 text-gray-400" />
-                  <span className="text-gray-700">{property.owner.email}</span>
+                  <Mail className="h-5 w-5" style={{ color: 'var(--brown-500)' }} />
+                  <span style={{ color: 'var(--brown-700)' }}>{property.owner.email}</span>
                 </div>
               </div>
               <div className="mt-4 pt-4 border-t">
-                <button className="w-full bg-gray-100 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">
-                  View Agent Profile
+                <button className="btn-secondary w-full py-3 px-4">
+                  👤 View Agent Profile
                 </button>
               </div>
             </div>
 
             {/* Quick Stats */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-semibold mb-4">Property Details</h3>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Property Type:</span>
-                  <span className="font-medium">{property.propertyType}</span>
+            <div className="bg-gradient-warm rounded-xl shadow-lg p-8">
+              <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--brown-800)' }}>📋 Property Details</h3>
+              <div className="space-y-4 text-sm">
+                <div className="flex justify-between py-2 border-b border-brown-200">
+                  <span style={{ color: 'var(--brown-600)' }}>🏠 Property Type:</span>
+                  <span className="font-semibold" style={{ color: 'var(--brown-800)' }}>{property.propertyType}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Year Built:</span>
-                  <span className="font-medium">{property.yearBuilt}</span>
+                <div className="flex justify-between py-2 border-b border-brown-200">
+                  <span style={{ color: 'var(--brown-600)' }}>📅 Year Built:</span>
+                  <span className="font-semibold" style={{ color: 'var(--brown-800)' }}>{property.yearBuilt}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Square Feet:</span>
-                  <span className="font-medium">{property.squareFeet?.toLocaleString()}</span>
+                <div className="flex justify-between py-2 border-b border-brown-200">
+                  <span style={{ color: 'var(--brown-600)' }}>📐 Square Feet:</span>
+                  <span className="font-semibold" style={{ color: 'var(--brown-800)' }}>{property.squareFeet?.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Price per Sq Ft:</span>
-                  <span className="font-medium">
+                <div className="flex justify-between py-2 border-b border-brown-200">
+                  <span style={{ color: 'var(--brown-600)' }}>💰 Price per Sq Ft:</span>
+                  <span className="font-semibold" style={{ color: 'var(--brown-800)' }}>
                     {property.squareFeet ? formatPrice(property.price / property.squareFeet) : 'N/A'}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Listed:</span>
-                  <span className="font-medium">
+                <div className="flex justify-between py-2">
+                  <span style={{ color: 'var(--brown-600)' }}>📋 Listed:</span>
+                  <span className="font-semibold" style={{ color: 'var(--brown-800)' }}>
                     {property.createdAt.toLocaleDateString()}
                   </span>
                 </div>

@@ -57,10 +57,10 @@ export default function AdminSettingsPage() {
               <span className="text-xl font-bold text-gray-900">🏠 Admin - Settings</span>
             </Link>
             <nav className="flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/" className="text-gray-700 hover:text-brown-600 font-medium">
                 Home
               </Link>
-              <Link href="/admin" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/admin" className="text-gray-700 hover:text-brown-600 font-medium">
                 Admin
               </Link>
               <button className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
@@ -81,7 +81,7 @@ export default function AdminSettingsPage() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="btn-primary flex items-center space-x-2 disabled:opacity-50"
           >
             {saving ? (
               <RefreshCw className="h-5 w-5 animate-spin" />
@@ -96,7 +96,7 @@ export default function AdminSettingsPage() {
           {/* General Settings */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center space-x-3 mb-6">
-              <Globe className="h-6 w-6 text-blue-600" />
+              <Globe className="h-6 w-6 text-brown-600" />
               <h3 className="text-lg font-semibold text-gray-900">General Settings</h3>
             </div>
             
@@ -107,7 +107,7 @@ export default function AdminSettingsPage() {
                   type="text"
                   value={settings.siteName}
                   onChange={(e) => handleInputChange('siteName', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input"
                 />
               </div>
               
@@ -116,7 +116,7 @@ export default function AdminSettingsPage() {
                 <select
                   value={settings.currency}
                   onChange={(e) => handleInputChange('currency', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input"
                 >
                   <option value="INR">Indian Rupee (₹)</option>
                   <option value="USD">US Dollar ($)</option>
@@ -130,7 +130,7 @@ export default function AdminSettingsPage() {
                   value={settings.siteDescription}
                   onChange={(e) => handleInputChange('siteDescription', e.target.value)}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input"
                 />
               </div>
             </div>
@@ -150,7 +150,7 @@ export default function AdminSettingsPage() {
                   type="email"
                   value={settings.contactEmail}
                   onChange={(e) => handleInputChange('contactEmail', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input"
                 />
               </div>
               
@@ -160,7 +160,7 @@ export default function AdminSettingsPage() {
                   type="tel"
                   value={settings.supportPhone}
                   onChange={(e) => handleInputChange('supportPhone', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input"
                 />
               </div>
             </div>
@@ -183,7 +183,7 @@ export default function AdminSettingsPage() {
                   type="checkbox"
                   checked={settings.enableNotifications}
                   onChange={(e) => handleInputChange('enableNotifications', e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-brown-600 focus:ring-brown-500 border-gray-300 rounded"
                 />
               </div>
               
@@ -196,7 +196,7 @@ export default function AdminSettingsPage() {
                   type="checkbox"
                   checked={settings.enableRegistrations}
                   onChange={(e) => handleInputChange('enableRegistrations', e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-brown-600 focus:ring-brown-500 border-gray-300 rounded"
                 />
               </div>
               
@@ -209,7 +209,7 @@ export default function AdminSettingsPage() {
                   type="checkbox"
                   checked={settings.enablePropertySubmissions}
                   onChange={(e) => handleInputChange('enablePropertySubmissions', e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-brown-600 focus:ring-brown-500 border-gray-300 rounded"
                 />
               </div>
               
@@ -222,7 +222,7 @@ export default function AdminSettingsPage() {
                   type="checkbox"
                   checked={settings.maintenanceMode}
                   onChange={(e) => handleInputChange('maintenanceMode', e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-brown-600 focus:ring-brown-500 border-gray-300 rounded"
                 />
               </div>
             </div>
@@ -244,7 +244,7 @@ export default function AdminSettingsPage() {
                   max="100"
                   value={settings.maxFileSize}
                   onChange={(e) => handleInputChange('maxFileSize', parseInt(e.target.value))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input"
                 />
               </div>
               
@@ -255,7 +255,7 @@ export default function AdminSettingsPage() {
                   value={settings.allowedImageTypes}
                   onChange={(e) => handleInputChange('allowedImageTypes', e.target.value)}
                   placeholder="jpg,jpeg,png,webp"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input"
                 />
               </div>
             </div>
@@ -273,7 +273,7 @@ export default function AdminSettingsPage() {
               <select
                 value={settings.theme}
                 onChange={(e) => handleInputChange('theme', e.target.value)}
-                className="w-full md:w-1/2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="form-input w-full md:w-1/2"
               >
                 <option value="default">Default</option>
                 <option value="dark">Dark Mode</option>

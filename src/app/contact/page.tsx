@@ -22,127 +22,131 @@ export default function ContactPage() {
     }
   }, []);
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-warm bg-pattern">
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Have questions about a property or need assistance? We're here to help you find your dream home.
+        <div className="text-center mb-16 fade-in">
+          <h1 className="heading-section">Let's Connect</h1>
+          <p className="text-xl text-warm max-w-3xl mx-auto leading-relaxed">
+            Ready to find your perfect home? Our expert team is here to guide you through 
+            every step of your real estate journey.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
+          {/* Enhanced Contact Form */}
+          <div className="card p-10">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-gradient mb-3">📧 Send us a Message</h2>
+              <p className="text-warm">We'll get back to you within 24 hours</p>
+            </div>
             
-            <form className="space-y-6">
+            <form className="space-y-8">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name *
+                  <label htmlFor="firstName" className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                    👤 First Name *
                   </label>
                   <input
                     type="text"
                     id="firstName"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="John"
+                    className="form-input p-4"
+                    placeholder="Enter your first name"
                   />
                 </div>
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name *
+                  <label htmlFor="lastName" className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                    👤 Last Name *
                   </label>
                   <input
                     type="text"
                     id="lastName"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Doe"
+                    className="form-input p-4"
+                    placeholder="Enter your last name"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address *
+                <label htmlFor="email" className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                  📧 Email Address *
                 </label>
                 <input
                   type="email"
                   id="email"
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="john.doe@example.com"
+                  className="form-input p-4"
+                  placeholder="your.email@example.com"
                 />
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number
+                <label htmlFor="phone" className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                  📞 Phone Number
                 </label>
                 <input
                   type="tel"
                   id="phone"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input p-4"
                   placeholder="(555) 123-4567"
                 />
               </div>
 
               <div>
-                <label htmlFor="propertyType" className="block text-sm font-medium text-gray-700 mb-2">
-                  Interested In
+                <label htmlFor="propertyType" className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                  🏡 Interested In
                 </label>
                 <select
                   id="propertyType"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input p-4"
                 >
-                  <option value="">Select Property Type</option>
-                  <option value="buying">Buying a Property</option>
-                  <option value="selling">Selling a Property</option>
-                  <option value="renting">Renting a Property</option>
-                  <option value="investment">Investment Opportunities</option>
-                  <option value="general">General Inquiry</option>
+                  <option value="">Select your interest...</option>
+                  <option value="buying">🏠 Buying a Property</option>
+                  <option value="selling">💰 Selling a Property</option>
+                  <option value="renting">🔑 Renting a Property</option>
+                  <option value="investment">📈 Investment Opportunities</option>
+                  <option value="general">💬 General Inquiry</option>
                 </select>
               </div>
 
               <div>
-                <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
-                  Budget Range
+                <label htmlFor="budget" className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                  💰 Budget Range
                 </label>
                 <select
                   id="budget"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input p-4"
                 >
-                  <option value="">Select Budget Range</option>
-                  <option value="under-200k">Under $200,000</option>
-                  <option value="200k-500k">$200,000 - $500,000</option>
-                  <option value="500k-1m">$500,000 - $1,000,000</option>
-                  <option value="1m-2m">$1,000,000 - $2,000,000</option>
-                  <option value="above-2m">Above $2,000,000</option>
+                  <option value="">Select your budget...</option>
+                  <option value="under-200k">💵 Under $200,000</option>
+                  <option value="200k-500k">💰 $200,000 - $500,000</option>
+                  <option value="500k-1m">💎 $500,000 - $1,000,000</option>
+                  <option value="1m-2m">🏆 $1,000,000 - $2,000,000</option>
+                  <option value="above-2m">👑 Above $2,000,000</option>
                 </select>
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
+                <label htmlFor="message" className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                  💭 Message *
                 </label>
                 <textarea
                   id="message"
-                  rows={5}
+                  rows={6}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Tell us about your property needs or any questions you have..."
+                  className="form-input p-4 min-h-[150px] resize-vertical"
+                  placeholder="Tell us about your real estate needs and how our team can assist you..."
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                className="btn-primary w-full py-4 px-8 text-lg font-semibold"
               >
-                Send Message
+                ✨ Send Message
               </button>
             </form>
           </div>
@@ -155,7 +159,7 @@ export default function ContactPage() {
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <Phone className="h-6 w-6 text-blue-600 mt-1" />
+                  <Phone className="h-6 w-6 mt-1" style={{ color: 'var(--brown-600)' }} />
                   <div>
                     <h3 className="font-semibold">Phone</h3>
                     <p className="text-gray-600">(555) 123-4567</p>
@@ -164,7 +168,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <Mail className="h-6 w-6 text-blue-600 mt-1" />
+                  <Mail className="h-6 w-6 mt-1" style={{ color: 'var(--brown-600)' }} />
                   <div>
                     <h3 className="font-semibold">Email</h3>
                     <p className="text-gray-600">info@realtywebsite.com</p>
@@ -173,7 +177,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <MapPin className="h-6 w-6 text-blue-600 mt-1" />
+                  <MapPin className="h-6 w-6 mt-1" style={{ color: 'var(--brown-600)' }} />
                   <div>
                     <h3 className="font-semibold">Office Address</h3>
                     <p className="text-gray-600">
@@ -185,7 +189,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <Clock className="h-6 w-6 text-blue-600 mt-1" />
+                  <Clock className="h-6 w-6 mt-1" style={{ color: 'var(--brown-600)' }} />
                   <div>
                     <h3 className="font-semibold">Business Hours</h3>
                     <div className="text-gray-600 space-y-1">
@@ -211,13 +215,25 @@ export default function ContactPage() {
             </div>
 
             {/* Quick Tips */}
-            <div className="bg-blue-50 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-blue-900 mb-4">Quick Tips</h3>
-              <ul className="space-y-2 text-blue-800 text-sm">
-                <li>• Include your preferred contact method</li>
-                <li>• Mention specific properties you're interested in</li>
-                <li>• Let us know your timeline for buying/selling</li>
-                <li>• Ask about our free market analysis</li>
+            <div className="bg-gradient-warm rounded-xl p-8 shadow-lg">
+              <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--brown-800)' }}>💡 Quick Tips</h3>
+              <ul className="space-y-3 text-base" style={{ color: 'var(--brown-700)' }}>
+                <li className="flex items-center space-x-3">
+                  <span className="text-lg">📞</span>
+                  <span>Include your preferred contact method</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <span className="text-lg">🏠</span>
+                  <span>Mention specific properties you're interested in</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <span className="text-lg">📅</span>
+                  <span>Let us know your timeline for buying/selling</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <span className="text-lg">📊</span>
+                  <span>Ask about our free market analysis</span>
+                </li>
               </ul>
             </div>
           </div>

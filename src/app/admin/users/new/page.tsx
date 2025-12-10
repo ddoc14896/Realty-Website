@@ -187,22 +187,36 @@ export default function AddUserPage() {
 
   const renderStepIndicator = () => (
     <div className="flex items-center justify-center mb-8">
-      {[1, 2, 3, 4].map((step, index) => (
-        <div key={step} className="flex items-center">
-          <div className={`flex items-center justify-center w-8 h-8 rounded-full border-2 ${
-            step <= currentStep 
-              ? 'border-blue-500 bg-blue-500 text-white' 
-              : 'border-gray-300 text-gray-400'
-          }`}>
-            {step < currentStep ? <CheckCircle className="h-5 w-5" /> : step}
+      {[1, 2, 3, 4].map((step, index) => {
+        const isActive = step === currentStep;
+        const isCompleted = step < currentStep;
+        
+        return (
+          <div key={step} className="flex items-center">
+            <div 
+              className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-colors ${
+                isCompleted 
+                  ? 'bg-green-600 border-green-600 text-white'
+                  : isActive 
+                  ? 'text-white'
+                  : 'border-gray-300 text-gray-400'
+              }`}
+              style={isActive ? { borderColor: 'var(--brown-600)', backgroundColor: 'var(--brown-600)' } : {}}
+            >
+              {isCompleted ? (
+                <CheckCircle className="h-5 w-5" />
+              ) : (
+                <span className="text-sm font-medium">{step}</span>
+              )}
+            </div>
+            {index < 3 && (
+              <div className={`w-16 h-0.5 mx-4 ${
+                step < currentStep ? 'bg-green-600' : 'bg-gray-300'
+              }`} />
+            )}
           </div>
-          {index < 3 && (
-            <div className={`w-16 h-0.5 ${
-              step < currentStep ? 'bg-blue-500' : 'bg-gray-300'
-            }`} />
-          )}
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 
@@ -210,7 +224,7 @@ export default function AddUserPage() {
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <User className="h-5 w-5 mr-2 text-blue-600" />
+          <User className="h-5 w-5 mr-2 text-brown-600" />
           Basic Information
         </h3>
         <p className="text-sm text-gray-600 mb-6">Enter the user's basic details and contact information.</p>
@@ -227,7 +241,7 @@ export default function AddUserPage() {
             placeholder="Enter full name"
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
         
@@ -241,7 +255,7 @@ export default function AddUserPage() {
             placeholder="user@example.com"
             value={formData.email}
             onChange={(e) => handleInputChange('email', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
         
@@ -255,7 +269,7 @@ export default function AddUserPage() {
             placeholder="+91 90000 00000"
             value={formData.phone}
             onChange={(e) => handleInputChange('phone', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
       </div>
@@ -266,7 +280,7 @@ export default function AddUserPage() {
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <Shield className="h-5 w-5 mr-2 text-blue-600" />
+          <Shield className="h-5 w-5 mr-2 text-brown-600" />
           Role & Access
         </h3>
         <p className="text-sm text-gray-600 mb-6">Configure user role, permissions, and employment details.</p>
@@ -280,7 +294,7 @@ export default function AddUserPage() {
           <select
             value={formData.role}
             onChange={(e) => handleInputChange('role', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           >
             {USER_ROLES.map(role => (
               <option key={role.value} value={role.value}>{role.label}</option>
@@ -298,7 +312,7 @@ export default function AddUserPage() {
           <select
             value={formData.status}
             onChange={(e) => handleInputChange('status', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           >
             {USER_STATUS.map(status => (
               <option key={status.value} value={status.value}>{status.label}</option>
@@ -313,7 +327,7 @@ export default function AddUserPage() {
           <select
             value={formData.department}
             onChange={(e) => handleInputChange('department', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           >
             <option value="">Select Department</option>
             {DEPARTMENTS.map(dept => (
@@ -330,7 +344,7 @@ export default function AddUserPage() {
             type="date"
             value={formData.joiningDate}
             onChange={(e) => handleInputChange('joiningDate', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
       </div>
@@ -341,7 +355,7 @@ export default function AddUserPage() {
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <MapPin className="h-5 w-5 mr-2 text-blue-600" />
+          <MapPin className="h-5 w-5 mr-2 text-brown-600" />
           Address Information
         </h3>
         <p className="text-sm text-gray-600 mb-6">Provide the user's address and location details.</p>
@@ -358,7 +372,7 @@ export default function AddUserPage() {
             placeholder="Enter full address"
             value={formData.address}
             onChange={(e) => handleInputChange('address', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
         
@@ -369,7 +383,7 @@ export default function AddUserPage() {
           <select
             value={formData.city}
             onChange={(e) => handleInputChange('city', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           >
             <option value="Chennai">Chennai</option>
             {CHENNAI_AREAS.map(area => (
@@ -388,7 +402,7 @@ export default function AddUserPage() {
             placeholder="600001"
             value={formData.zipCode}
             onChange={(e) => handleInputChange('zipCode', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
         
@@ -400,7 +414,7 @@ export default function AddUserPage() {
             type="text"
             value={formData.state}
             onChange={(e) => handleInputChange('state', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
       </div>
@@ -411,7 +425,7 @@ export default function AddUserPage() {
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <Building className="h-5 w-5 mr-2 text-blue-600" />
+          <Building className="h-5 w-5 mr-2 text-brown-600" />
           Additional Details
         </h3>
         <p className="text-sm text-gray-600 mb-6">Optional additional information and emergency contacts.</p>
@@ -427,7 +441,7 @@ export default function AddUserPage() {
             placeholder="Emergency contact person"
             value={formData.emergencyContact}
             onChange={(e) => handleInputChange('emergencyContact', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
         
@@ -440,7 +454,7 @@ export default function AddUserPage() {
             placeholder="+91 90000 00000"
             value={formData.emergencyPhone}
             onChange={(e) => handleInputChange('emergencyPhone', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
         
@@ -453,7 +467,7 @@ export default function AddUserPage() {
             placeholder="50000"
             value={formData.salary}
             onChange={(e) => handleInputChange('salary', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
         
@@ -465,7 +479,7 @@ export default function AddUserPage() {
             type="file"
             accept="image/*"
             onChange={(e) => handleInputChange('profileImage', e.target.files?.[0] || null)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
         
@@ -478,7 +492,7 @@ export default function AddUserPage() {
             placeholder="Additional notes about the user..."
             value={formData.notes}
             onChange={(e) => handleInputChange('notes', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="form-input"
           />
         </div>
       </div>
@@ -497,7 +511,7 @@ export default function AddUserPage() {
             </p>
             <Link
               href="/admin/users"
-              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="btn-primary inline-flex items-center"
             >
               View All Users
             </Link>
@@ -517,9 +531,9 @@ export default function AddUserPage() {
             <p className="text-gray-600 mb-6">
               There was an error creating the user account. Please try again.
             </p>
-            <button
+              <button
               onClick={() => setSubmitStatus(null)}
-              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="btn-primary inline-flex items-center"
             >
               Try Again
             </button>
@@ -537,7 +551,7 @@ export default function AddUserPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 flex items-center">
-                <UserPlus className="h-6 w-6 mr-2 text-blue-600" />
+                <UserPlus className="h-6 w-6 mr-2 text-brown-600" />
                 Add New User
               </h1>
               <p className="text-gray-600 mt-1">Create a new user account with detailed information</p>
@@ -579,7 +593,7 @@ export default function AddUserPage() {
                   <button
                     type="button"
                     onClick={handlePrevious}
-                    className="flex items-center px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                    className="flex items-center px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-brown-50 transition-colors"
                   >
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Previous
@@ -593,7 +607,7 @@ export default function AddUserPage() {
                     type="button"
                     onClick={handleNext}
                     disabled={!validateStep(currentStep)}
-                    className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="btn-primary flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next
                     <ArrowRight className="h-4 w-4 ml-2" />
@@ -602,7 +616,7 @@ export default function AddUserPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="btn-primary flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>
