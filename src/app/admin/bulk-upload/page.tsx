@@ -125,7 +125,7 @@ export default function AdminBulkUploadPage() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-warm fade-in">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -134,10 +134,10 @@ export default function AdminBulkUploadPage() {
               <span className="text-xl font-bold text-gray-900">🏠 Admin - Bulk Upload</span>
             </Link>
             <nav className="flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/" className="text-gray-700 hover:text-brown-600 font-medium">
                 Home
               </Link>
-              <Link href="/admin" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/admin" className="text-gray-700 hover:text-brown-600 font-medium">
                 Admin
               </Link>
               <button className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
@@ -156,12 +156,12 @@ export default function AdminBulkUploadPage() {
         </div>
 
         {/* Instructions */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-          <h3 className="text-lg font-semibold text-blue-900 mb-4">Upload Instructions</h3>
+        <div className="bg-brown-50 border border-brown-200 rounded-lg p-6 mb-8">
+          <h3 className="text-lg font-semibold text-brown-900 mb-4">Upload Instructions</h3>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h4 className="font-medium text-blue-800 mb-2">Required Fields:</h4>
-              <ul className="text-sm text-blue-700 space-y-1">
+              <h4 className="font-medium text-brown-800 mb-2">Required Fields:</h4>
+              <ul className="text-sm text-brown-700 space-y-1">
                 <li>• title - Property title</li>
                 <li>• address - Street address</li>
                 <li>• city - City name</li>
@@ -172,8 +172,8 @@ export default function AdminBulkUploadPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-medium text-blue-800 mb-2">Optional Fields:</h4>
-              <ul className="text-sm text-blue-700 space-y-1">
+              <h4 className="font-medium text-brown-800 mb-2">Optional Fields:</h4>
+              <ul className="text-sm text-brown-700 space-y-1">
                 <li>• description - Property description</li>
                 <li>• zipCode - Postal code</li>
                 <li>• latitude, longitude - GPS coordinates</li>
@@ -186,7 +186,7 @@ export default function AdminBulkUploadPage() {
           <div className="mt-4">
             <button
               onClick={downloadSample}
-              className="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="btn-primary inline-flex items-center space-x-2"
             >
               <Download className="h-4 w-4" />
               <span>Download Sample CSV</span>
@@ -201,7 +201,7 @@ export default function AdminBulkUploadPage() {
             <div
               className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
                 dragActive
-                  ? 'border-blue-500 bg-blue-50'
+                  ? 'border-brown-500 bg-brown-50'
                   : file
                   ? 'border-green-500 bg-green-50'
                   : 'border-gray-300 hover:border-gray-400'
@@ -252,7 +252,7 @@ export default function AdminBulkUploadPage() {
                 <button
                   onClick={handleUpload}
                   disabled={uploading}
-                  className="inline-flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="btn-primary inline-flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {uploading ? (
                     <>

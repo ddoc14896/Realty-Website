@@ -76,25 +76,25 @@ export default function AdminPage() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-warm fade-in">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white/90 backdrop-blur-md shadow-lg border-b" style={{ borderColor: 'var(--border)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center space-x-2">
               <span className="text-xl font-bold text-gray-900">🏠 Realty Website - Admin</span>
             </Link>
             <nav className="flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/" className="nav-link px-3 py-2">
                 Home
               </Link>
-              <Link href="/properties" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/properties" className="nav-link px-3 py-2">
                 Properties
               </Link>
-              <Link href="/admin" className="text-blue-600 font-medium">
+              <Link href="/admin" className="nav-link active px-3 py-2" style={{ color: 'var(--brown-600)' }}>
                 Admin
               </Link>
-              <button className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
+              <button className="btn-secondary px-4 py-2 text-red-600 border-red-300 hover:bg-red-50 hover:border-red-400">
                 Logout
               </button>
             </nav>
@@ -105,30 +105,30 @@ export default function AdminPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex gap-8">
           {/* Sidebar */}
-          <div className="w-64 bg-white rounded-lg shadow-md p-6">
+          <div className="w-64 property-card p-6 slide-in">
             <h2 className="text-lg font-semibold mb-6">Admin Panel</h2>
             <nav className="space-y-2">
-              <Link href="/admin" className="flex items-center space-x-3 px-3 py-2 bg-blue-100 text-blue-700 rounded-lg">
+              <Link href="/admin" className="nav-link flex items-center space-x-3 px-3 py-2 rounded-lg" style={{ backgroundColor: 'var(--brown-100)', color: 'var(--brown-700)' }}>
                 <BarChart3 className="h-5 w-5" />
                 <span>Dashboard</span>
               </Link>
-              <Link href="/admin/properties" className="flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+              <Link href="/admin/properties" className="nav-link flex items-center space-x-3 px-3 py-2 rounded-lg bounce">
                 <Home className="h-5 w-5" />
                 <span>Properties</span>
               </Link>
-              <Link href="/admin/users" className="flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+              <Link href="/admin/users" className="nav-link flex items-center space-x-3 px-3 py-2 rounded-lg bounce">
                 <Users className="h-5 w-5" />
                 <span>Users</span>
               </Link>
-              <Link href="/admin/inquiries" className="flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+              <Link href="/admin/inquiries" className="nav-link flex items-center space-x-3 px-3 py-2 rounded-lg bounce">
                 <FileText className="h-5 w-5" />
                 <span>Inquiries</span>
               </Link>
-              <Link href="/admin/bulk-upload" className="flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+              <Link href="/admin/bulk-upload" className="nav-link flex items-center space-x-3 px-3 py-2 rounded-lg bounce">
                 <Upload className="h-5 w-5" />
                 <span>Bulk Upload</span>
               </Link>
-              <Link href="/admin/settings" className="flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+              <Link href="/admin/settings" className="nav-link flex items-center space-x-3 px-3 py-2 rounded-lg bounce">
                 <Settings className="h-5 w-5" />
                 <span>Settings</span>
               </Link>
@@ -139,64 +139,64 @@ export default function AdminPage() {
           <div className="flex-1">
             {/* Dashboard Stats */}
             <div className="grid md:grid-cols-4 gap-6 mb-8">
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="property-card p-6 grid-item">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Total Properties</p>
-                    <p className="text-2xl font-semibold text-gray-900">
-                      {loading ? '...' : stats.totalProperties}
+                    <p className="text-sm" style={{ color: 'var(--brown-600)' }}>Total Properties</p>
+                    <p className="text-2xl font-bold property-price">
+                      {loading ? <span className="animate-pulse">...</span> : stats.totalProperties}
                     </p>
                   </div>
-                  <Home className="h-8 w-8 text-blue-600" />
+                  <Home className="h-8 w-8 pulse" style={{ color: 'var(--brown-600)' }} />
                 </div>
               </div>
               
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="property-card p-6 grid-item">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Active Listings</p>
-                    <p className="text-2xl font-semibold text-gray-900">
-                      {loading ? '...' : stats.activeListings}
+                    <p className="text-sm" style={{ color: 'var(--brown-600)' }}>Active Listings</p>
+                    <p className="text-2xl font-bold property-price text-green-600">
+                      {loading ? <span className="animate-pulse">...</span> : stats.activeListings}
                     </p>
                   </div>
-                  <Eye className="h-8 w-8 text-green-600" />
+                  <Eye className="h-8 w-8 pulse text-green-600" />
                 </div>
               </div>
               
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="property-card p-6 grid-item">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">New Inquiries</p>
-                    <p className="text-2xl font-semibold text-gray-900">
-                      {loading ? '...' : stats.newInquiries}
+                    <p className="text-sm" style={{ color: 'var(--brown-600)' }}>New Inquiries</p>
+                    <p className="text-2xl font-bold property-price text-yellow-600">
+                      {loading ? <span className="animate-pulse">...</span> : stats.newInquiries}
                     </p>
                   </div>
-                  <FileText className="h-8 w-8 text-yellow-600" />
+                  <FileText className="h-8 w-8 pulse text-yellow-600" />
                 </div>
               </div>
               
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="property-card p-6 grid-item">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Total Users</p>
-                    <p className="text-2xl font-semibold text-gray-900">
-                      {loading ? '...' : stats.totalUsers.toLocaleString()}
+                    <p className="text-sm" style={{ color: 'var(--brown-600)' }}>Total Users</p>
+                    <p className="text-2xl font-bold property-price text-purple-600">
+                      {loading ? <span className="animate-pulse">...</span> : stats.totalUsers.toLocaleString()}
                     </p>
                   </div>
-                  <Users className="h-8 w-8 text-purple-600" />
+                  <Users className="h-8 w-8 pulse text-purple-600" />
                 </div>
               </div>
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+            <div className="property-card p-6 mb-8 bounce">
+              <h3 className="text-lg font-bold mb-4 text-gradient">Quick Actions</h3>
               <div className="grid md:grid-cols-3 gap-4">
-                <Link href="/admin/properties/new" className="flex items-center space-x-3 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <Link href="/admin/properties/new" className="btn-primary flex items-center space-x-3 px-4 py-3 pulse">
                   <Plus className="h-5 w-5" />
                   <span>Add New Property</span>
                 </Link>
-                <Link href="/admin/bulk-upload" className="flex items-center space-x-3 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                <Link href="/admin/bulk-upload" className="btn-accent flex items-center space-x-3 px-4 py-3">
                   <Upload className="h-5 w-5" />
                   <span>Bulk Upload CSV</span>
                 </Link>
@@ -211,7 +211,7 @@ export default function AdminPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold">Recent Properties</h3>
-                <Link href="/admin/properties" className="text-blue-600 hover:text-blue-800">
+                <Link href="/admin/properties" className="font-medium hover:underline" style={{ color: 'var(--brown-600)' }}>
                   View All
                 </Link>
               </div>
@@ -265,7 +265,7 @@ export default function AdminPage() {
                             </div>
                           </td>
                           <td className="py-3">
-                            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                            <span className="px-2 py-1 rounded text-xs" style={{ backgroundColor: 'var(--brown-100)', color: 'var(--brown-800)' }}>
                               {property.propertyType}
                             </span>
                           </td>
@@ -281,7 +281,7 @@ export default function AdminPage() {
                           </td>
                           <td className="py-3">
                             <div className="flex space-x-2">
-                              <Link href={`/properties/${property.id}`} className="text-blue-600 hover:text-blue-800">
+                              <Link href={`/properties/${property.id}`} className="font-medium hover:underline" style={{ color: 'var(--brown-600)' }}>
                                 <Eye className="h-4 w-4" />
                               </Link>
                               <Link href={`/admin/properties/${property.id}/edit`} className="text-yellow-600 hover:text-yellow-800">
@@ -304,14 +304,14 @@ export default function AdminPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold">Recent Inquiries</h3>
-                <Link href="/admin/inquiries" className="text-blue-600 hover:text-blue-800">
+                <Link href="/admin/inquiries" className="font-medium hover:underline" style={{ color: 'var(--brown-600)' }}>
                   View All
                 </Link>
               </div>
               
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="border-l-4 border-blue-500 pl-4 py-3 bg-blue-50 rounded-r">
+                  <div key={i} className="border-l-4 pl-4 py-3 rounded-r" style={{ borderColor: 'var(--brown-500)', backgroundColor: 'var(--brown-50)' }}>
                     <div className="flex justify-between items-start">
                       <div>
                         <p className="font-medium">John Doe {i}</p>

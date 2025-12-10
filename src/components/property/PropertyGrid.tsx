@@ -21,7 +21,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from "next/link";
-import { MapPin, Share2 } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import FavoriteButton from "@/components/FavoriteButton";
 
@@ -84,42 +84,6 @@ export default function PropertyGrid() {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [shareSuccess, setShareSuccess] = useState<string | null>(null);
-
-  // Share functionality
-  const handleShare = async (property: Property, event: React.MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-    
-    const propertyUrl = `${window.location.origin}/properties/${property.id}`;
-    const shareData = {
-      title: property.title,
-      text: `Check out this amazing ${property.propertyType} in ${property.city}! ${formatPrice(property.price)}`,
-      url: propertyUrl
-    };
-
-    try {
-      // Check if Web Share API is supported
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        // Fallback: copy to clipboard
-        await navigator.clipboard.writeText(propertyUrl);
-        setShareSuccess(property.id);
-        setTimeout(() => setShareSuccess(null), 3000);
-      }
-    } catch (error) {
-      console.error('Error sharing:', error);
-      // Fallback: try to copy to clipboard
-      try {
-        await navigator.clipboard.writeText(propertyUrl);
-        setShareSuccess(property.id);
-        setTimeout(() => setShareSuccess(null), 3000);
-      } catch (clipboardError) {
-        console.error('Failed to copy to clipboard:', clipboardError);
-      }
-    }
-  };
 
   useEffect(() => {
     async function fetchProperties() {
@@ -143,15 +107,15 @@ export default function PropertyGrid() {
 
   if (loading) {
     return (
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
-            <div className="h-48 bg-gray-200"></div>
-            <div className="p-4 space-y-3">
-              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-              <div className="h-3 bg-gray-200 rounded w-full"></div>
-              <div className="h-8 bg-gray-200 rounded"></div>
+          <div key={i} className="property-card animate-pulse">
+            <div className="h-56" style={{ backgroundColor: 'var(--brown-200)' }}></div>
+            <div className="p-6 space-y-4">
+              <div className="h-5 rounded-xl w-3/4" style={{ backgroundColor: 'var(--brown-200)' }}></div>
+              <div className="h-4 rounded-xl w-1/2" style={{ backgroundColor: 'var(--brown-100)' }}></div>
+              <div className="h-4 rounded-xl w-full" style={{ backgroundColor: 'var(--brown-100)' }}></div>
+              <div className="h-12 rounded-xl" style={{ backgroundColor: 'var(--brown-200)' }}></div>
             </div>
           </div>
         ))}
@@ -161,84 +125,113 @@ export default function PropertyGrid() {
 
   if (error) {
     return (
-      <div className="text-center py-12">
-        <p className="text-red-600 text-lg">{error}</p>
-        <button 
-          onClick={() => window.location.reload()} 
-          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-        >
-          Try Again
-        </button>
+      <div className="text-center py-16">
+        <div className="card max-w-md mx-auto p-8">
+          <div className="w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center"
+               style={{ backgroundColor: 'var(--brown-100)' }}>
+            <span className="text-2xl">⚠️</span>
+          </div>
+          <p className="text-lg mb-6" style={{ color: 'var(--brown-700)' }}>{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="btn-primary"
+          >
+            🔄 Try Again
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {properties.map((property) => {
         const primaryImage = property.images.find(img => img.isPrimary) || property.images[0];
         
         return (
-          <div key={property.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+          <div key={property.id} className="property-card group fade-in">
             <div className="relative">
-              <div className="h-48 relative overflow-hidden group bg-gray-200">
+              <div className="h-56 relative overflow-hidden" style={{ backgroundColor: 'var(--brown-100)' }}>
                 <img 
                   src={getPropertyImage(property)}
                   alt={`${property.title} - ${property.address}`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   loading="lazy"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = getFallbackImage(property.propertyType);
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Overlay Elements */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
               
-              <div className="absolute top-4 right-4 flex space-x-2">
-                <button
-                  onClick={(e) => handleShare(property, e)}
-                  className="p-2 rounded-full shadow-lg hover:shadow-xl relative border border-white border-opacity-30 transition-all duration-200"
-                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', backdropFilter: 'blur(4px)' }}
-                  title="Share this property"
-                >
-                  <Share2 className="h-4 w-4 text-white" />
-                  {shareSuccess === property.id && (
-                    <div className="absolute -bottom-8 right-0 bg-green-500 text-white px-2 py-1 rounded text-xs whitespace-nowrap">
-                      Link copied!
-                    </div>
-                  )}
-                </button>
+              <div className="absolute top-4 right-4 z-10">
                 <FavoriteButton propertyId={property.id} size="sm" showTooltip />
               </div>
               
-              <div className="absolute bottom-4 left-4">
-                <span className="bg-blue-600 text-white px-3 py-1 rounded text-sm font-medium">
-                  {formatPrice(property.price)}
+              <div className="absolute top-4 left-4 z-10">
+                <span className="property-badge px-4 py-2 text-sm">
+                  ✨ Premium
                 </span>
+              </div>
+              
+              <div className="absolute bottom-4 left-4 z-10">
+                <div className="property-price text-white text-shadow px-4 py-2 rounded-xl" 
+                     style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}>
+                  {formatPrice(property.price)}
+                </div>
               </div>
             </div>
             
-            <div className="p-4">
-              <h3 className="font-semibold text-lg mb-2 line-clamp-2">{property.title}</h3>
-              <p className="text-gray-600 text-sm mb-3 flex items-center">
-                <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
-                <span className="line-clamp-1">
-                  {property.address}, {property.city}, {property.state} {property.zipCode}
-                </span>
-              </p>
+            <div className="p-6">
+              <div className="mb-4">
+                <h3 className="font-bold text-xl mb-2 line-clamp-2 text-gradient">
+                  {property.title}
+                </h3>
+                <p className="flex items-center text-sm mb-3" style={{ color: 'var(--brown-600)' }}>
+                  <MapPin className="h-4 w-4 mr-2 flex-shrink-0" style={{ color: 'var(--soft-gold)' }} />
+                  <span className="line-clamp-1 font-medium">
+                    {property.address}, {property.city}, {property.state} {property.zipCode}
+                  </span>
+                </p>
+              </div>
               
-              <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
-                <span>{property.bedrooms} beds</span>
-                <span>{property.bathrooms} baths</span>
-                <span>{property.squareFeet?.toLocaleString()} sqft</span>
+              <div className="flex justify-between items-center mb-6 p-3 rounded-xl" 
+                   style={{ backgroundColor: 'var(--brown-50)' }}>
+                <div className="text-center">
+                  <span className="block text-lg font-bold" style={{ color: 'var(--brown-800)' }}>
+                    {property.bedrooms}
+                  </span>
+                  <span className="text-xs font-medium" style={{ color: 'var(--brown-600)' }}>
+                    🛏️ Beds
+                  </span>
+                </div>
+                <div className="text-center">
+                  <span className="block text-lg font-bold" style={{ color: 'var(--brown-800)' }}>
+                    {property.bathrooms}
+                  </span>
+                  <span className="text-xs font-medium" style={{ color: 'var(--brown-600)' }}>
+                    🛁 Baths
+                  </span>
+                </div>
+                <div className="text-center">
+                  <span className="block text-lg font-bold" style={{ color: 'var(--brown-800)' }}>
+                    {(property.squareFeet / 1000).toFixed(1)}K
+                  </span>
+                  <span className="text-xs font-medium" style={{ color: 'var(--brown-600)' }}>
+                    📐 SqFt
+                  </span>
+                </div>
               </div>
               
               <Link 
                 href={`/properties/${property.id}`}
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-center block"
+                className="btn-primary w-full text-center block group-hover:shadow-lg transition-all duration-300"
               >
-                View Details
+                🏠 Explore Details
               </Link>
             </div>
           </div>
@@ -246,9 +239,20 @@ export default function PropertyGrid() {
       })}
       
       {properties.length === 0 && !loading && (
-        <div className="col-span-full text-center py-12">
-          <p className="text-gray-500 text-lg">No properties found matching your criteria.</p>
-          <p className="text-gray-400 text-sm mt-2">Try adjusting your search filters.</p>
+        <div className="col-span-full text-center py-16">
+          <div className="card max-w-md mx-auto p-8">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center"
+                 style={{ backgroundColor: 'var(--brown-100)' }}>
+              <span className="text-3xl">🏠</span>
+            </div>
+            <h3 className="text-xl font-bold mb-4 text-gradient">No Properties Found</h3>
+            <p className="mb-2" style={{ color: 'var(--brown-600)' }}>
+              We couldn't find any properties matching your criteria.
+            </p>
+            <p className="text-sm" style={{ color: 'var(--brown-400)' }}>
+              Try adjusting your search filters or browse all available properties.
+            </p>
+          </div>
         </div>
       )}
     </div>

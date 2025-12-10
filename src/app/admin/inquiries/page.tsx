@@ -131,22 +131,22 @@ export default function AdminInquiriesPage() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-warm fade-in">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white/90 backdrop-blur-md shadow-lg border-b slide-in-top">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/admin" className="flex items-center space-x-2">
+            <Link href="/admin" className="flex items-center space-x-2 bounce-in">
               <span className="text-xl font-bold text-gray-900">🏠 Admin - Inquiries</span>
             </Link>
-            <nav className="flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
+            <nav className="flex space-x-2">
+              <Link href="/" className="nav-link px-4 py-2 mx-2">
                 Home
               </Link>
-              <Link href="/admin" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/admin" className="nav-link px-4 py-2 mx-2">
                 Admin
               </Link>
-              <button className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
+              <button className="nav-link bg-red-100 text-red-600 px-4 py-2 mx-2 rounded-lg hover:bg-red-200">
                 Logout
               </button>
             </nav>
@@ -154,22 +154,22 @@ export default function AdminInquiriesPage() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 slide-in-right">
         {/* Page Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
+        <div className="flex justify-between items-center mb-8 fade-in">
+          <div className="slide-in-left">
             <h1 className="text-3xl font-bold text-gray-900">Customer Inquiries</h1>
             <p className="text-gray-600 mt-2">Manage customer inquiries and contact requests</p>
           </div>
-          <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-500">
+          <div className="flex items-center space-x-4 bounce-in">
+            <span className="text-sm text-gray-500 pulse">
               {filteredInquiries.filter(i => i.status === 'pending').length} pending responses
             </span>
           </div>
         </div>
 
         {/* Filters and Search */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="property-card bg-white rounded-lg shadow-md p-6 mb-8 fade-in">
           <div className="grid md:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
@@ -180,7 +180,7 @@ export default function AdminInquiriesPage() {
                   placeholder="Search inquiries..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input pl-10 pr-4 py-2 w-full"
                 />
               </div>
             </div>
@@ -236,7 +236,7 @@ export default function AdminInquiriesPage() {
 
           {loading ? (
             <div className="px-6 py-12 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 mx-auto" style={{ borderColor: 'var(--brown-600)' }}></div>
               <p className="mt-2 text-gray-600">Loading inquiries...</p>
             </div>
           ) : error ? (
@@ -244,7 +244,7 @@ export default function AdminInquiriesPage() {
               <p className="text-red-600">{error}</p>
               <button 
                 onClick={fetchInquiries}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                className="btn-primary mt-4 px-4 py-2"
               >
                 Try Again
               </button>
@@ -298,7 +298,8 @@ export default function AdminInquiriesPage() {
                             </div>
                             <Link 
                               href={`/properties/${inquiry.propertyId}`}
-                              className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                              className="text-sm font-medium hover:underline"
+                              style={{ color: 'var(--brown-600)' }}
                             >
                               {inquiry.propertyTitle || `Property #${inquiry.propertyId}`}
                             </Link>
@@ -327,7 +328,7 @@ export default function AdminInquiriesPage() {
                       <select
                         value={inquiry.status}
                         onChange={(e) => handleStatusUpdate(inquiry.id, e.target.value)}
-                        className="text-sm border border-gray-300 rounded px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="form-input text-sm px-3 py-1"
                       >
                         <option value="pending">Pending</option>
                         <option value="responded">Responded</option>

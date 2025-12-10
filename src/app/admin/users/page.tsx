@@ -183,7 +183,7 @@ export default function AdminUsersPage() {
   const getRoleIcon = (role: string) => {
     switch (role) {
       case 'admin': return <Crown className="h-4 w-4 text-purple-600" />;
-      case 'agent': return <Shield className="h-4 w-4 text-blue-600" />;
+      case 'agent': return <Shield className="h-4 w-4" style={{ color: 'var(--brown-600)' }} />;
       case 'user': return <User className="h-4 w-4 text-green-600" />;
       default: return <User className="h-4 w-4 text-gray-600" />;
     }
@@ -192,7 +192,7 @@ export default function AdminUsersPage() {
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'admin': return 'bg-purple-100 text-purple-800';
-      case 'agent': return 'bg-blue-100 text-blue-800';
+      case 'agent': return '';
       case 'user': return 'bg-green-100 text-green-800';
       default: return 'bg-gray-100 text-gray-800';
     }
@@ -218,22 +218,22 @@ export default function AdminUsersPage() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-warm fade-in">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white/90 backdrop-blur-md shadow-lg border-b slide-in-top">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/admin" className="flex items-center space-x-2">
+            <Link href="/admin" className="flex items-center space-x-2 bounce-in">
               <span className="text-xl font-bold text-gray-900">🏠 Admin - Users</span>
             </Link>
-            <nav className="flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
+            <nav className="flex space-x-2">
+              <Link href="/" className="nav-link px-4 py-2 mx-2">
                 Home
               </Link>
-              <Link href="/admin" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/admin" className="nav-link px-4 py-2 mx-2">
                 Admin
               </Link>
-              <button className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
+              <button className="nav-link bg-red-100 text-red-600 px-4 py-2 mx-2 rounded-lg hover:bg-red-200">
                 Logout
               </button>
             </nav>
@@ -241,24 +241,24 @@ export default function AdminUsersPage() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 slide-in-right">
         {/* Page Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
+        <div className="flex justify-between items-center mb-8 fade-in">
+          <div className="slide-in-left">
             <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
             <p className="text-gray-600 mt-2">Manage user accounts, roles, and permissions</p>
           </div>
           <Link
             href="/admin/users/new"
-            className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="btn-primary flex items-center space-x-2 px-4 py-2 bounce-in"
           >
-            <UserPlus className="h-5 w-5" />
+            <UserPlus className="h-5 w-5 pulse" />
             <span>Add User</span>
           </Link>
         </div>
 
         {/* Filters and Search */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="property-card bg-white rounded-lg shadow-md p-6 mb-8 fade-in">
           <div className="grid md:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
@@ -269,7 +269,7 @@ export default function AdminUsersPage() {
                   placeholder="Search users..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input pl-10 pr-4 py-2 w-full"
                 />
               </div>
             </div>
@@ -306,9 +306,9 @@ export default function AdminUsersPage() {
               <label className="block text-sm font-medium text-gray-700 mb-2">Actions</label>
               <button 
                 onClick={fetchUsers}
-                className="w-full flex items-center justify-center space-x-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+                className="nav-link w-full flex items-center justify-center space-x-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200"
               >
-                <Filter className="h-4 w-4" />
+                <Filter className="h-4 w-4 pulse" />
                 <span>Refresh</span>
               </button>
             </div>
@@ -316,8 +316,8 @@ export default function AdminUsersPage() {
         </div>
 
         {/* Users Table */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200">
+        <div className="property-card bg-white rounded-lg shadow-md overflow-hidden slide-in-up">
+          <div className="px-6 py-4 border-b border-gray-200 fade-in">
             <h3 className="text-lg font-medium text-gray-900">
               Users ({filteredUsers.length})
             </h3>
@@ -325,7 +325,7 @@ export default function AdminUsersPage() {
 
           {loading ? (
             <div className="px-6 py-12 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 mx-auto" style={{ borderColor: 'var(--brown-600)' }}></div>
               <p className="mt-2 text-gray-600">Loading users...</p>
             </div>
           ) : (
@@ -354,13 +354,13 @@ export default function AdminUsersPage() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50">
+                  {filteredUsers.map((user, index) => (
+                  <tr key={user.id} className="grid-item hover:bg-gray-50 fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-12 w-12">
-                          <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <Users className="h-6 w-6 text-blue-600" />
+                          <div className="h-12 w-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--brown-100)' }}>
+                            <Users className="h-6 w-6" style={{ color: 'var(--brown-600)' }} />
                           </div>
                         </div>
                         <div className="ml-4">
@@ -394,7 +394,8 @@ export default function AdminUsersPage() {
                       <select
                         value={user.status}
                         onChange={(e) => handleStatusChange(user.id, e.target.value as 'active' | 'inactive' | 'pending')}
-                        className={`text-xs font-semibold rounded px-2 py-1 border-0 focus:ring-2 focus:ring-blue-500 ${getStatusColor(user.status)}`}
+                        className={`text-xs font-semibold rounded px-2 py-1 border-0 focus:ring-2 ${getStatusColor(user.status)}`}
+                        style={{ '--tw-ring-color': 'var(--brown-500)' }}
                       >
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
@@ -411,14 +412,15 @@ export default function AdminUsersPage() {
                       <div className="flex items-center space-x-2">
                         <button 
                           onClick={() => handleEditUser(user)}
-                          className="text-blue-600 hover:text-blue-900"
+                          className="nav-link font-medium hover:underline p-2"
+                          style={{ color: 'var(--brown-600)' }}
                           title="Edit User"
                         >
                           <Edit className="h-4 w-4" />
                         </button>
                         <button 
                           onClick={() => handleDeleteUser(user.id)}
-                          className="text-red-600 hover:text-red-900"
+                          className="nav-link text-red-600 hover:text-red-900 p-2"
                           title="Delete User"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -442,7 +444,7 @@ export default function AdminUsersPage() {
                         <div className="mt-6">
                           <Link
                             href="/admin/users/new"
-                            className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                            className="btn-primary inline-flex items-center"
                           >
                             <UserPlus className="h-4 w-4 mr-2" />
                             Add User
@@ -546,7 +548,7 @@ export default function AdminUsersPage() {
                   <button
                     type="submit"
                     disabled={!newUser.name || !newUser.email || loading}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Updating...' : 'Update User'}
                   </button>

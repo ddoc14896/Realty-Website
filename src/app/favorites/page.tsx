@@ -140,7 +140,7 @@ export default function FavoritesPage() {
         </div>
         
         <div className="absolute bottom-4 left-4">
-          <span className="bg-blue-600 text-white px-3 py-1 rounded text-sm font-medium shadow-lg">
+          <span className="px-3 py-1 rounded text-sm font-medium shadow-lg" style={{ backgroundColor: 'var(--brown-600)', color: 'white' }}>
             {formatPrice(property.price)}
           </span>
         </div>
@@ -169,7 +169,7 @@ export default function FavoritesPage() {
         
         <Link 
           href={`/properties/${property.id}`}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-center block"
+          className="btn-primary w-full py-2 px-4 text-center block"
         >
           View Details
         </Link>
@@ -199,13 +199,15 @@ export default function FavoritesPage() {
               <span className="text-sm text-gray-600">View:</span>
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'}`}
+                className={`p-2 rounded-lg transition-colors ${viewMode === 'grid' ? 'text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'}`}
+                style={viewMode === 'grid' ? { backgroundColor: 'var(--brown-600)' } : {}}
               >
                 <Grid className="h-4 w-4" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'}`}
+                className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'}`}
+                style={viewMode === 'list' ? { backgroundColor: 'var(--brown-600)' } : {}}
               >
                 <List className="h-4 w-4" />
               </button>
@@ -245,7 +247,7 @@ export default function FavoritesPage() {
             <div className="space-x-4">
               <Link
                 href="/properties"
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                className="btn-primary inline-flex items-center px-6 py-3 font-medium"
               >
                 <Home className="h-5 w-5 mr-2" />
                 Browse Properties
@@ -253,7 +255,7 @@ export default function FavoritesPage() {
               {!user && (
                 <Link
                   href="/signup"
-                  className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors"
+                  className="btn-secondary inline-flex items-center px-6 py-3 font-medium"
                 >
                   Create Account
                 </Link>

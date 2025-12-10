@@ -91,22 +91,22 @@ export default function AdminPropertiesPage() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-warm fade-in">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white/90 backdrop-blur-md shadow-lg border-b slide-in-top" style={{ borderColor: 'var(--border)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/admin" className="flex items-center space-x-2">
+            <Link href="/admin" className="flex items-center space-x-2 bounce-in">
               <span className="text-xl font-bold text-gray-900">🏠 Admin - Properties</span>
             </Link>
-            <nav className="flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
+            <nav className="flex space-x-2">
+              <Link href="/" className="nav-link px-4 py-2 mx-2">
                 Home
               </Link>
-              <Link href="/admin" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link href="/admin" className="nav-link px-4 py-2 mx-2">
                 Admin
               </Link>
-              <button className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
+              <button className="nav-link bg-red-100 text-red-600 px-4 py-2 mx-2 rounded-lg hover:bg-red-200">
                 Logout
               </button>
             </nav>
@@ -114,24 +114,24 @@ export default function AdminPropertiesPage() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 slide-in-right">
         {/* Page Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
+        <div className="flex justify-between items-center mb-8 fade-in">
+          <div className="slide-in-left">
             <h1 className="text-3xl font-bold text-gray-900">Property Management</h1>
             <p className="text-gray-600 mt-2">Manage all properties in your database</p>
           </div>
           <Link 
             href="/admin/properties/new"
-            className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="btn-primary flex items-center space-x-2 px-4 py-2 bounce-in"
           >
-            <Plus className="h-5 w-5" />
+            <Plus className="h-5 w-5 pulse" />
             <span>Add Property</span>
           </Link>
         </div>
 
         {/* Filters and Search */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="property-card bg-white rounded-lg shadow-md p-6 mb-8 fade-in">
           <div className="grid md:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
@@ -142,7 +142,7 @@ export default function AdminPropertiesPage() {
                   placeholder="Search properties..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input pl-10 pr-4 py-2 w-full"
                 />
               </div>
             </div>
@@ -152,7 +152,7 @@ export default function AdminPropertiesPage() {
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="form-input w-full px-3 py-2"
               >
                 <option value="all">All Types</option>
                 <option value="house">House</option>
@@ -167,7 +167,7 @@ export default function AdminPropertiesPage() {
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="form-input w-full px-3 py-2"
               >
                 <option value="all">All Status</option>
                 <option value="FOR_SALE">For Sale</option>
@@ -200,7 +200,7 @@ export default function AdminPropertiesPage() {
 
           {loading ? (
             <div className="px-6 py-12 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 mx-auto" style={{ borderColor: 'var(--brown-600)' }}></div>
               <p className="mt-2 text-gray-600">Loading properties...</p>
             </div>
           ) : error ? (
@@ -208,7 +208,7 @@ export default function AdminPropertiesPage() {
               <p className="text-red-600">{error}</p>
               <button 
                 onClick={fetchProperties}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                className="btn-primary mt-4 px-4 py-2"
               >
                 Try Again
               </button>
@@ -244,8 +244,8 @@ export default function AdminPropertiesPage() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-12 w-12">
-                            <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                              <Home className="h-6 w-6 text-blue-600" />
+                            <div className="h-12 w-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--brown-100)' }}>
+                              <Home className="h-6 w-6" style={{ color: 'var(--brown-600)' }} />
                             </div>
                           </div>
                           <div className="ml-4">
@@ -259,7 +259,7 @@ export default function AdminPropertiesPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full" style={{ backgroundColor: 'var(--brown-100)', color: 'var(--brown-800)' }}>
                           {property.propertyType}
                         </span>
                       </td>
@@ -283,7 +283,8 @@ export default function AdminPropertiesPage() {
                         <div className="flex items-center space-x-2">
                           <Link 
                             href={`/properties/${property.id}`}
-                            className="text-blue-600 hover:text-blue-900"
+                            className="font-medium hover:underline"
+                            style={{ color: 'var(--brown-600)' }}
                           >
                             <Eye className="h-4 w-4" />
                           </Link>
@@ -319,7 +320,7 @@ export default function AdminPropertiesPage() {
                   <div className="mt-6">
                     <Link 
                       href="/admin/properties/new"
-                      className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                      className="btn-primary inline-flex items-center px-4 py-2 text-sm font-medium"
                     >
                       <Plus className="h-4 w-4 mr-2" />
                       Add Property

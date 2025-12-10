@@ -62,11 +62,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-warm flex flex-col justify-center py-12 sm:px-6 lg:px-8 fade-in">
       {/* Header */}
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md slide-in">
         <div className="text-center">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold nav-link" style={{ color: 'var(--brown-600)' }}>
             🏠 Chennai Realty
           </Link>
         </div>
@@ -75,14 +75,14 @@ export default function LoginPage() {
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           Or{' '}
-          <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+          <Link href="/signup" className="font-medium hover:underline" style={{ color: 'var(--brown-600)' }}>
             create a new account
           </Link>
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md bounce">
+        <div className="property-card py-8 px-4 shadow-2xl rounded-2xl px-10">
           {/* Quick Login Demo Buttons */}
           <div className="mb-6">
             <p className="text-sm font-medium text-gray-700 mb-3">Quick Demo Login:</p>
@@ -95,7 +95,10 @@ export default function LoginPage() {
               </button>
               <button
                 onClick={() => quickLogin('agent@realtywebsite.com', 'agent123', 'AGENT')}
-                className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+                className="text-xs px-2 py-1 rounded transition-colors"
+                style={{ backgroundColor: 'var(--brown-100)', color: 'var(--brown-700)' }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--brown-200)'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = 'var(--brown-100)'}
               >
                 Agent
               </button>
@@ -133,7 +136,7 @@ export default function LoginPage() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="form-input"
                   placeholder="Enter your email"
                 />
               </div>
@@ -151,7 +154,7 @@ export default function LoginPage() {
                   value={formData.password}
                   onChange={handleInputChange}
                   required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="form-input"
                   placeholder="Enter your password"
                 />
               </div>
@@ -164,7 +167,7 @@ export default function LoginPage() {
                 className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
                   isLoading
                     ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                    : 'btn-primary'
                 }`}
               >
                 {isLoading ? 'Signing in...' : 'Sign in'}

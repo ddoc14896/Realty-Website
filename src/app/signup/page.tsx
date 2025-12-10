@@ -74,7 +74,7 @@ export default function SignupPage() {
       {/* Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold" style={{ color: 'var(--brown-600)' }}>
             🏠 Chennai Realty
           </Link>
         </div>
@@ -83,7 +83,7 @@ export default function SignupPage() {
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           Already have an account?{' '}
-          <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+          <Link href="/login" className="font-medium hover:underline" style={{ color: 'var(--brown-600)' }}>
             Sign in
           </Link>
         </p>
@@ -110,7 +110,7 @@ export default function SignupPage() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="form-input"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -144,7 +144,7 @@ export default function SignupPage() {
                   name="role"
                   value={formData.role}
                   onChange={handleInputChange}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    className="form-input"
                 >
                   <option value="USER">User (Property Seeker)</option>
                   <option value="AGENT">Agent (Property Seller)</option>
@@ -196,7 +196,7 @@ export default function SignupPage() {
                 className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
                   isLoading
                     ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                    : 'btn-primary'
                 }`}
               >
                 {isLoading ? 'Creating account...' : 'Create account'}

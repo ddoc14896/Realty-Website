@@ -100,65 +100,77 @@ export default function PropertySearch({ onSearch, isLoading = false }: Property
   ];
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 mb-8">
+    <div className="property-card p-8 mb-8 fade-in">
       <form onSubmit={handleSearch}>
-        {/* Basic Search Row */}
-        <div className="flex flex-col md:flex-row gap-4 mb-4">
+        {/* Enhanced Search Section */}
+        <div className="flex flex-col md:flex-row gap-6 mb-6">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5" 
+                    style={{ color: 'var(--brown-500)' }} />
             <input
               type="text"
-              placeholder="Search properties, neighborhoods, or keywords..."
+              placeholder="🔍 Search properties, neighborhoods, or keywords..."
               value={filters.query}
               onChange={(e) => handleFilterChange('query', e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="form-input pl-12 pr-4 py-4 text-base"
+              style={{ 
+                borderRadius: '1rem',
+                fontSize: '1rem'
+              }}
             />
           </div>
           
           <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5" 
+                    style={{ color: 'var(--brown-500)' }} />
             <input
               type="text"
-              placeholder="Location (City, State)"
+              placeholder="📍 Location (City, State)"
               value={filters.location}
               onChange={(e) => handleFilterChange('location', e.target.value)}
-              className="w-full md:w-64 pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="form-input w-full md:w-72 pl-12 pr-4 py-4 text-base"
+              style={{ 
+                borderRadius: '1rem',
+                fontSize: '1rem'
+              }}
             />
           </div>
           
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <button
               type="submit"
               disabled={isLoading}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+              className="btn-primary px-8 py-4 font-semibold pulse"
             >
-              {isLoading ? 'Searching...' : 'Search'}
+              {isLoading ? '🔄 Searching...' : '🔍 Search Properties'}
             </button>
             
             <button
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="bg-gray-100 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-200 transition-colors"
+              className="btn-secondary px-6 py-4 font-semibold"
             >
-              Filters
+              ⚙️ {isExpanded ? 'Hide' : 'Show'} Filters
             </button>
           </div>
         </div>
 
-        {/* Advanced Filters */}
+        {/* Enhanced Advanced Filters */}
         {isExpanded && (
-          <div className="border-t pt-4 space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="pt-6 mt-6" style={{ borderTop: `2px solid var(--brown-200)` }}>
+            <h3 className="text-lg font-bold mb-6 text-gradient">🎯 Advanced Filters</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Property Type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Home className="inline h-4 w-4 mr-1" />
+                <label className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                  <Home className="inline h-4 w-4 mr-2" style={{ color: 'var(--soft-gold)' }} />
                   Property Type
                 </label>
                 <select
                   value={filters.propertyType}
                   onChange={(e) => handleFilterChange('propertyType', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input p-4 text-base"
+                  style={{ borderRadius: '0.75rem' }}
                 >
                   {propertyTypes.map(type => (
                     <option key={type.value} value={type.value}>{type.label}</option>
@@ -168,11 +180,14 @@ export default function PropertySearch({ onSearch, isLoading = false }: Property
 
               {/* Status */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                <label className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                  📋 Listing Status
+                </label>
                 <select
                   value={filters.status}
                   onChange={(e) => handleFilterChange('status', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input p-4 text-base"
+                  style={{ borderRadius: '0.75rem' }}
                 >
                   {statusOptions.map(status => (
                     <option key={status.value} value={status.value}>{status.label}</option>
@@ -182,14 +197,15 @@ export default function PropertySearch({ onSearch, isLoading = false }: Property
 
               {/* Bedrooms */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Bed className="inline h-4 w-4 mr-1" />
+                <label className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                  <Bed className="inline h-4 w-4 mr-2" style={{ color: 'var(--soft-gold)' }} />
                   Bedrooms
                 </label>
                 <select
                   value={filters.bedrooms}
                   onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input p-4 text-base"
+                  style={{ borderRadius: '0.75rem' }}
                 >
                   {bedroomOptions.map(option => (
                     <option key={option.value} value={option.value}>{option.label}</option>
@@ -199,14 +215,15 @@ export default function PropertySearch({ onSearch, isLoading = false }: Property
 
               {/* Bathrooms */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Bath className="inline h-4 w-4 mr-1" />
+                <label className="block text-sm font-bold mb-3" style={{ color: 'var(--brown-700)' }}>
+                  <Bath className="inline h-4 w-4 mr-2" style={{ color: 'var(--soft-gold)' }} />
                   Bathrooms
                 </label>
                 <select
                   value={filters.bathrooms}
                   onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="form-input p-4 text-base"
+                  style={{ borderRadius: '0.75rem' }}
                 >
                   {bathroomOptions.map(option => (
                     <option key={option.value} value={option.value}>{option.label}</option>
@@ -215,55 +232,67 @@ export default function PropertySearch({ onSearch, isLoading = false }: Property
               </div>
             </div>
 
-            {/* Price Range */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Min Price</label>
-                <input
-                  type="number"
-                  placeholder="$0"
-                  value={filters.minPrice}
-                  onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Max Price</label>
-                <input
-                  type="number"
-                  placeholder="No limit"
-                  value={filters.maxPrice}
-                  onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+            {/* Enhanced Price Range */}
+            <div className="mt-6">
+              <h4 className="text-sm font-bold mb-4" style={{ color: 'var(--brown-700)' }}>
+                💰 Price Range
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2" style={{ color: 'var(--brown-600)' }}>
+                    Minimum Price
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="💵 Enter minimum price"
+                    value={filters.minPrice}
+                    onChange={(e) => handleFilterChange('minPrice', e.target.value)}
+                    className="form-input p-4 text-base"
+                    style={{ borderRadius: '0.75rem' }}
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2" style={{ color: 'var(--brown-600)' }}>
+                    Maximum Price
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="💎 No upper limit"
+                    value={filters.maxPrice}
+                    onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
+                    className="form-input p-4 text-base"
+                    style={{ borderRadius: '0.75rem' }}
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex justify-between pt-4">
+            {/* Enhanced Action Buttons */}
+            <div className="flex flex-col md:flex-row justify-between items-center pt-8 gap-4">
               <button
                 type="button"
                 onClick={clearFilters}
-                className="text-gray-600 hover:text-gray-800 font-medium"
+                className="font-semibold transition-all duration-300 hover:scale-105"
+                style={{ color: 'var(--brown-600)' }}
               >
-                Clear All Filters
+                🗑️ Clear All Filters
               </button>
               
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={() => setIsExpanded(false)}
-                  className="bg-gray-100 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+                  className="btn-secondary px-6 py-3"
                 >
-                  Cancel
+                  ❌ Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+                  className="btn-primary px-8 py-3"
                 >
-                  Apply Filters
+                  ✨ Apply Filters
                 </button>
               </div>
             </div>

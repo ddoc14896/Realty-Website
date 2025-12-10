@@ -69,119 +69,142 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="bg-white/90 backdrop-blur-md shadow-lg border-b" style={{ borderColor: 'var(--border)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
-            <Home className="h-8 w-8 text-blue-600" />
-            <Link href="/" className="text-xl font-bold text-gray-900">
-              Chennai Realty
+        <div className="flex justify-between items-center h-20">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 rounded-xl" style={{ backgroundColor: 'var(--brown-100)' }}>
+              <Home className="h-8 w-8" style={{ color: 'var(--brown-700)' }} />
+            </div>
+            <Link href="/" className="text-2xl font-bold text-gradient">
+              UrbanNest Realty
             </Link>
           </div>
           
-          <nav className="flex items-center space-x-8">
-            <Link href="/properties" className="text-gray-700 hover:text-blue-600 font-medium">
+          <nav className="flex items-center">
+            <Link href="/properties" className="nav-link px-4 py-2 mx-2">
               Properties
             </Link>
-            <Link href="/properties/map" className="text-gray-700 hover:text-blue-600 font-medium">
+            <Link href="/properties/map" className="nav-link px-4 py-2 mx-2">
               Map View
             </Link>
-            <Link href="/favorites" className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium">
+            <Link href="/favorites" className="nav-link px-4 py-2 mx-2 flex items-center space-x-2">
               <Heart className="h-4 w-4" />
               <span>Favorites</span>
               {getFavoritesCount() > 0 && (
-                <span className="bg-red-500 text-white text-xs rounded-full px-2 py-0.5 ml-1">
+                <span className="property-badge text-xs px-2 py-1 ml-1">
                   {getFavoritesCount()}
                 </span>
               )}
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">
+            <Link href="/contact" className="nav-link px-4 py-2 mx-2">
               Contact
             </Link>
             
             {/* User Menu or Login Dropdown */}
             {user ? (
-              <div className="relative">
+              <div className="relative ml-4">
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 font-medium"
+                  className="nav-link flex items-center space-x-2 px-4 py-2 rounded-xl border-2 transition-all duration-300"
+                  style={{ 
+                    borderColor: 'var(--brown-300)',
+                    backgroundColor: 'var(--warm-white)'
+                  }}
                 >
-                  <User className="h-5 w-5" />
-                  <span>{user.name}</span>
-                  <span className={`px-2 py-1 text-xs rounded-full ${getRoleColor(user.role)}`}>
+                  <div className="p-1 rounded-lg" style={{ backgroundColor: 'var(--brown-100)' }}>
+                    <User className="h-4 w-4" style={{ color: 'var(--brown-700)' }} />
+                  </div>
+                  <span className="font-medium">{user.name}</span>
+                  <span className={`px-3 py-1 text-xs rounded-full font-semibold ${getRoleColor(user.role)}`}>
                     {user.role}
                   </span>
                   <ChevronDown className="h-4 w-4" />
                 </button>
                 
                 {showDropdown && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                  <div className="absolute right-0 mt-3 w-56 rounded-2xl shadow-xl py-2 z-50 border-2" 
+                       style={{ 
+                         backgroundColor: 'var(--warm-white)',
+                         borderColor: 'var(--brown-200)'
+                       }}>
                     {user.role === 'ADMIN' && (
                       <Link
                         href="/admin"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-6 py-3 text-sm font-medium transition-all duration-200 hover:bg-gradient-warm"
+                        style={{ color: 'var(--brown-700)' }}
                         onClick={() => setShowDropdown(false)}
                       >
-                        Admin Panel
+                        🏢 Admin Panel
                       </Link>
                     )}
                     <Link
                       href="/profile"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-6 py-3 text-sm font-medium transition-all duration-200 hover:bg-gradient-warm"
+                      style={{ color: 'var(--brown-700)' }}
                       onClick={() => setShowDropdown(false)}
                     >
-                      Profile
+                      👤 Profile
                     </Link>
+                    <div className="border-t mx-4 my-2" style={{ borderColor: 'var(--brown-200)' }}></div>
                     <button
                       onClick={handleLogout}
-                      className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                      className="flex items-center w-full px-6 py-3 text-sm font-medium transition-all duration-200 hover:bg-red-50"
+                      style={{ color: '#dc2626' }}
                     >
-                      <LogOut className="h-4 w-4 mr-2" />
+                      <LogOut className="h-4 w-4 mr-3" />
                       Logout
                     </button>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="relative">
+              <div className="relative ml-4">
                 <button
                   onClick={() => setShowLoginDropdown(!showLoginDropdown)}
-                  className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 font-medium"
+                  className="btn-primary flex items-center space-x-2"
                 >
                   <span>Login</span>
                   <ChevronDown className="h-4 w-4" />
                 </button>
                 
                 {showLoginDropdown && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                  <div className="absolute right-0 mt-3 w-56 rounded-2xl shadow-xl py-2 z-50 border-2"
+                       style={{ 
+                         backgroundColor: 'var(--warm-white)',
+                         borderColor: 'var(--brown-200)'
+                       }}>
                     <Link
                       href="/login"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-6 py-3 text-sm font-medium transition-all duration-200 hover:bg-gradient-warm"
+                      style={{ color: 'var(--brown-700)' }}
                       onClick={() => setShowLoginDropdown(false)}
                     >
-                      Login as User
+                      👤 Login as User
                     </Link>
                     <Link
                       href="/login"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-6 py-3 text-sm font-medium transition-all duration-200 hover:bg-gradient-warm"
+                      style={{ color: 'var(--brown-700)' }}
                       onClick={() => setShowLoginDropdown(false)}
                     >
-                      Login as Agent
+                      🏘️ Login as Agent
                     </Link>
                     <Link
                       href="/login"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-6 py-3 text-sm font-medium transition-all duration-200 hover:bg-gradient-warm"
+                      style={{ color: 'var(--brown-700)' }}
                       onClick={() => setShowLoginDropdown(false)}
                     >
-                      Login as Admin
+                      👑 Login as Admin
                     </Link>
-                    <div className="border-t border-gray-100"></div>
+                    <div className="border-t mx-4 my-2" style={{ borderColor: 'var(--brown-200)' }}></div>
                     <Link
                       href="/signup"
-                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 font-medium"
+                      className="block px-6 py-3 text-sm font-bold transition-all duration-200 hover:bg-gradient-warm text-gold-gradient"
                       onClick={() => setShowLoginDropdown(false)}
                     >
-                      Sign Up
+                      ✨ Sign Up
                     </Link>
                   </div>
                 )}
