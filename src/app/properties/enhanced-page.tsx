@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from "next/link";
 import { MapPin, Grid, List, Heart } from "lucide-react";
 import PropertySearch from "@/components/search/PropertySearch";
+import FavoriteButton from "@/components/FavoriteButton";
 import { formatPrice } from "@/lib/utils";
 import Header from "@/components/Header";
 
@@ -136,9 +137,7 @@ export default function PropertiesPage() {
           </div>
           
           <div className="absolute top-4 right-4">
-            <button className="bg-white p-2 rounded-full shadow-md hover:bg-gray-50 transition-colors">
-              <Heart className="h-4 w-4 text-red-500" />
-            </button>
+            <FavoriteButton propertyId={property.id} size="sm" showTooltip />
           </div>
           
           <div className="absolute bottom-4 left-4">

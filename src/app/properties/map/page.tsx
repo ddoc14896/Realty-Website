@@ -271,7 +271,8 @@ export default function MapViewPage() {
                   const lng = selectedProperty?.longitude || 80.2707;
                   window.open(`https://www.google.com/maps/@${lat},${lng},15z`, '_blank');
                 }}
-                className="bg-white px-3 py-2 rounded shadow hover:bg-gray-50 text-xs font-medium"
+                className="px-3 py-2 rounded shadow-lg hover:shadow-xl text-xs font-medium text-white border border-white border-opacity-30 transition-all duration-200"
+                style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', backdropFilter: 'blur(4px)' }}
               >
                 Google Maps
               </button>

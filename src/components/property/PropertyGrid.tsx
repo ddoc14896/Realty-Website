@@ -21,7 +21,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { MapPin, Share2 } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import FavoriteButton from "@/components/FavoriteButton";
 
@@ -84,6 +84,42 @@ export default function PropertyGrid() {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [shareSuccess, setShareSuccess] = useState<string | null>(null);
+
+  // Share functionality
+  const handleShare = async (property: Property, event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const propertyUrl = `${window.location.origin}/properties/${property.id}`;
+    const shareData = {
+      title: property.title,
+      text: `Check out this amazing ${property.propertyType} in ${property.city}! ${formatPrice(property.price)}`,
+      url: propertyUrl
+    };
+
+    try {
+      // Check if Web Share API is supported
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback: copy to clipboard
+        await navigator.clipboard.writeText(propertyUrl);
+        setShareSuccess(property.id);
+        setTimeout(() => setShareSuccess(null), 3000);
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // Fallback: try to copy to clipboard
+      try {
+        await navigator.clipboard.writeText(propertyUrl);
+        setShareSuccess(property.id);
+        setTimeout(() => setShareSuccess(null), 3000);
+      } catch (clipboardError) {
+        console.error('Failed to copy to clipboard:', clipboardError);
+      }
+    }
+  };
 
   useEffect(() => {
     async function fetchProperties() {
@@ -159,7 +195,20 @@ export default function PropertyGrid() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               
-              <div className="absolute top-4 right-4">
+              <div className="absolute top-4 right-4 flex space-x-2">
+                <button
+                  onClick={(e) => handleShare(property, e)}
+                  className="p-2 rounded-full shadow-lg hover:shadow-xl relative border border-white border-opacity-30 transition-all duration-200"
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', backdropFilter: 'blur(4px)' }}
+                  title="Share this property"
+                >
+                  <Share2 className="h-4 w-4 text-white" />
+                  {shareSuccess === property.id && (
+                    <div className="absolute -bottom-8 right-0 bg-green-500 text-white px-2 py-1 rounded text-xs whitespace-nowrap">
+                      Link copied!
+                    </div>
+                  )}
+                </button>
                 <FavoriteButton propertyId={property.id} size="sm" showTooltip />
               </div>
               

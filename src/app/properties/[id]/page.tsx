@@ -24,6 +24,40 @@ export default function PropertyDetailPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [shareSuccess, setShareSuccess] = useState(false);
+
+  // Share functionality
+  const handleShare = async () => {
+    if (!property) return;
+    
+    const shareData = {
+      title: property.title,
+      text: `Check out this amazing ${property.propertyType} in ${property.city}! ${formatPrice(property.price)}`,
+      url: window.location.href
+    };
+
+    try {
+      // Check if Web Share API is supported
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback: copy to clipboard
+        await navigator.clipboard.writeText(window.location.href);
+        setShareSuccess(true);
+        setTimeout(() => setShareSuccess(false), 3000);
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // Fallback: try to copy to clipboard
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setShareSuccess(true);
+        setTimeout(() => setShareSuccess(false), 3000);
+      } catch (clipboardError) {
+        console.error('Failed to copy to clipboard:', clipboardError);
+      }
+    }
+  };
 
   useEffect(() => {
     const foundProperty = sampleProperties.find(p => p.id === id);
@@ -148,11 +182,24 @@ export default function PropertyDetailPage() {
                 
                 {/* Action buttons */}
                 <div className="absolute top-4 right-4 flex space-x-2">
-                  <button className="bg-white p-3 rounded-full shadow-md hover:bg-gray-50">
-                    <Heart className="h-5 w-5 text-red-500" />
+                  <button 
+                    className="p-3 rounded-full shadow-lg hover:shadow-xl border border-white border-opacity-30 transition-all duration-200"
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', backdropFilter: 'blur(4px)' }}
+                  >
+                    <Heart className="h-5 w-5 text-red-400" />
                   </button>
-                  <button className="bg-white p-3 rounded-full shadow-md hover:bg-gray-50">
-                    <Share2 className="h-5 w-5 text-gray-600" />
+                  <button 
+                    onClick={handleShare}
+                    className="p-3 rounded-full shadow-lg hover:shadow-xl relative border border-white border-opacity-30 transition-all duration-200"
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', backdropFilter: 'blur(4px)' }}
+                    title="Share this property"
+                  >
+                    <Share2 className="h-5 w-5 text-white" />
+                    {shareSuccess && (
+                      <div className="absolute -bottom-10 right-0 bg-green-500 text-white px-2 py-1 rounded text-xs whitespace-nowrap">
+                        Link copied!
+                      </div>
+                    )}
                   </button>
                 </div>
 
