@@ -100,7 +100,7 @@ export default function PropertySearch({ onSearch, isLoading = false }: Property
   ];
 
   return (
-    <div className="card p-8 mb-8">
+    <div className="property-card p-8 mb-8 fade-in">
       <form onSubmit={handleSearch}>
         {/* Enhanced Search Section */}
         <div className="flex flex-col md:flex-row gap-6 mb-6">
@@ -140,7 +140,7 @@ export default function PropertySearch({ onSearch, isLoading = false }: Property
             <button
               type="submit"
               disabled={isLoading}
-              className="btn-primary px-8 py-4 font-semibold"
+              className="btn-primary px-8 py-4 font-semibold pulse"
             >
               {isLoading ? '🔄 Searching...' : '🔍 Search Properties'}
             </button>

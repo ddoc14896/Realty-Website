@@ -154,23 +154,23 @@ export default function PropertiesPage() {
     const primaryImage = property.images.find(img => img.isPrimary) || property.images[0];
     
     return (
-      <div key={property.id} className={`property-card group ${
-        viewMode === 'list' ? 'flex' : ''
+      <div key={property.id} className={`property-card group grid-item ${
+        viewMode === 'list' ? 'flex flex-row w-full list-view' : ''
       }`}>
-        <div className={`relative ${viewMode === 'list' ? 'w-72 flex-shrink-0' : ''}`}>
+        <div className={`relative ${viewMode === 'list' ? 'w-80 flex-shrink-0' : ''}`}>
           <div className={`${viewMode === 'list' ? 'h-48' : 'h-56'} relative overflow-hidden cursor-pointer`} 
                style={{ backgroundColor: 'var(--brown-100)' }}>
             <img 
               src={getPropertyImage(property)}
               alt={`${property.title} - ${property.address}`}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              className="property-image w-full h-full object-cover"
               loading="lazy"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = getFallbackImage(property.propertyType);
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-apple"></div>
           </div>
           
           <div className="absolute top-4 left-4">
@@ -233,7 +233,7 @@ export default function PropertiesPage() {
           
           <Link 
             href={`/properties/${property.id}`}
-            className={`btn-primary text-center transition-all duration-300 ${
+            className={`btn-primary text-center bounce ${
               viewMode === 'list' ? 'inline-block px-8 py-3' : 'w-full block'
             }`}
           >
@@ -283,34 +283,32 @@ export default function PropertiesPage() {
                 <MapPin className="h-4 w-4" />
                 <span>🗺️ Map View</span>
               </Link>
-              <div className="flex rounded-xl overflow-hidden border-2" style={{ borderColor: 'var(--brown-300)' }}>
+              <div className="flex rounded-xl overflow-hidden border-2 shadow-lg" style={{ borderColor: 'var(--brown-300)' }}>
                 <button 
                   onClick={() => setViewMode('grid')}
-                  className={`px-4 py-2 transition-all duration-300 ${
-                    viewMode === 'grid' 
-                      ? 'text-white' 
-                      : 'hover:bg-gradient-warm'
+                  className={`view-toggle-btn px-4 py-2 ${
+                    viewMode === 'grid' ? 'active text-white' : 'hover:bg-gradient-warm'
                   }`}
                   style={{
                     backgroundColor: viewMode === 'grid' ? 'var(--brown-600)' : 'transparent',
                     color: viewMode === 'grid' ? 'white' : 'var(--brown-700)'
                   }}
+                  title="Grid View"
                 >
-                  <Grid className="h-4 w-4" />
+                  <Grid className="h-5 w-5" />
                 </button>
                 <button 
                   onClick={() => setViewMode('list')}
-                  className={`px-4 py-2 transition-all duration-300 ${
-                    viewMode === 'list' 
-                      ? 'text-white' 
-                      : 'hover:bg-gradient-warm'
+                  className={`view-toggle-btn px-4 py-2 ${
+                    viewMode === 'list' ? 'active text-white' : 'hover:bg-gradient-warm'
                   }`}
                   style={{
                     backgroundColor: viewMode === 'list' ? 'var(--brown-600)' : 'transparent',
                     color: viewMode === 'list' ? 'white' : 'var(--brown-700)'
                   }}
+                  title="List View"
                 >
-                  <List className="h-4 w-4" />
+                  <List className="h-5 w-5" />
                 </button>
               </div>
             </div>
@@ -322,9 +320,9 @@ export default function PropertiesPage() {
           <div className={`${viewMode === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3' : 'space-y-6'} gap-8`}>
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className={`property-card animate-pulse ${
-                viewMode === 'list' ? 'flex' : ''
+                viewMode === 'list' ? 'flex flex-row w-full' : ''
               }`}>
-                <div className={`${viewMode === 'list' ? 'w-72 h-48' : 'h-56'}`} 
+                <div className={`${viewMode === 'list' ? 'w-80 h-48 flex-shrink-0' : 'h-56'}`} 
                      style={{ backgroundColor: 'var(--brown-200)' }}></div>
                 <div className="p-6 space-y-4 flex-1">
                   <div className="h-5 rounded-xl w-3/4" style={{ backgroundColor: 'var(--brown-200)' }}></div>
@@ -363,7 +361,7 @@ export default function PropertiesPage() {
         {/* Properties Grid/List */}
         {!loading && !error && (
           <>
-            <div className={`${viewMode === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3' : 'space-y-4'} gap-6`}>
+            <div className={`${viewMode === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-6 list-container'}`}>
               {properties.map(renderPropertyCard)}
             </div>
 

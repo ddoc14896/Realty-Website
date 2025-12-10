@@ -81,14 +81,14 @@ export default function Header() {
             </Link>
           </div>
           
-          <nav className="flex items-center space-x-8">
-            <Link href="/properties" className="nav-link">
+          <nav className="flex items-center">
+            <Link href="/properties" className="nav-link px-4 py-2 mx-2">
               Properties
             </Link>
-            <Link href="/properties/map" className="nav-link">
+            <Link href="/properties/map" className="nav-link px-4 py-2 mx-2">
               Map View
             </Link>
-            <Link href="/favorites" className="nav-link flex items-center space-x-2">
+            <Link href="/favorites" className="nav-link px-4 py-2 mx-2 flex items-center space-x-2">
               <Heart className="h-4 w-4" />
               <span>Favorites</span>
               {getFavoritesCount() > 0 && (
@@ -97,16 +97,16 @@ export default function Header() {
                 </span>
               )}
             </Link>
-            <Link href="/contact" className="nav-link">
+            <Link href="/contact" className="nav-link px-4 py-2 mx-2">
               Contact
             </Link>
             
             {/* User Menu or Login Dropdown */}
             {user ? (
-              <div className="relative">
+              <div className="relative ml-4">
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="nav-link flex items-center space-x-3 px-4 py-2 rounded-xl border-2 transition-all duration-300"
+                  className="nav-link flex items-center space-x-2 px-4 py-2 rounded-xl border-2 transition-all duration-300"
                   style={{ 
                     borderColor: 'var(--brown-300)',
                     backgroundColor: 'var(--warm-white)'
@@ -159,7 +159,7 @@ export default function Header() {
                 )}
               </div>
             ) : (
-              <div className="relative">
+              <div className="relative ml-4">
                 <button
                   onClick={() => setShowLoginDropdown(!showLoginDropdown)}
                   className="btn-primary flex items-center space-x-2"

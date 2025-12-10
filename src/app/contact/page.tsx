@@ -36,7 +36,7 @@ export default function ContactPage() {
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Enhanced Contact Form */}
-          <div className="card p-10">
+          <div className="property-card p-10 slide-in">
             <div className="mb-8">
               <h2 className="text-3xl font-bold text-gradient mb-3">📧 Send us a Message</h2>
               <p className="text-warm">We'll get back to you within 24 hours</p>

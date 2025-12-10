@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
+import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
   title: "Realty Website - Find Your Dream Property",
@@ -24,7 +25,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-sans antialiased bg-gradient-warm">
         <FavoritesProvider>
-          {children}
+          <PageTransition>
+            {children}
+          </PageTransition>
         </FavoritesProvider>
       </body>
     </html>

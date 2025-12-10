@@ -62,11 +62,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-warm flex flex-col justify-center py-12 sm:px-6 lg:px-8 fade-in">
       {/* Header */}
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md slide-in">
         <div className="text-center">
-          <Link href="/" className="text-2xl font-bold" style={{ color: 'var(--brown-600)' }}>
+          <Link href="/" className="text-2xl font-bold nav-link" style={{ color: 'var(--brown-600)' }}>
             🏠 Chennai Realty
           </Link>
         </div>
@@ -81,8 +81,8 @@ export default function LoginPage() {
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md bounce">
+        <div className="property-card py-8 px-4 shadow-2xl rounded-2xl px-10">
           {/* Quick Login Demo Buttons */}
           <div className="mb-6">
             <p className="text-sm font-medium text-gray-700 mb-3">Quick Demo Login:</p>

@@ -44,36 +44,33 @@ export default function HomePage() {
           </p>
           
           {/* Enhanced Search Bar */}
-          <div className="max-w-3xl mx-auto mb-12">
-            <div className="relative group">
+          <div className="max-w-3xl mx-auto mb-12 slide-in">
+            <div className="search-container">
               <input
                 type="text"
                 placeholder="Enter location, property type, or your dream home features..."
-                className="form-input pl-6 pr-6 py-6 text-lg shadow-xl w-full group-hover:shadow-2xl"
-                style={{ 
-                  fontSize: '1.1rem',
-                  borderRadius: '1rem'
-                }}
+                className="search-input text-lg shadow-xl"
               />
+              <Search className="search-icon h-6 w-6" />
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <button className="btn-accent px-8 py-3">
+                <button className="btn-accent px-8 py-3 bounce">
                   Search
                 </button>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center fade-in">
             <Link 
               href="/properties"
-              className="btn-primary inline-flex items-center text-lg px-10 py-4 pulse-gold"
+              className="btn-primary inline-flex items-center text-lg px-10 py-4 pulse"
             >
               <MapPin className="mr-3 h-6 w-6" />
               Explore Properties
             </Link>
             <Link 
               href="/properties/map"
-              className="btn-secondary inline-flex items-center text-lg px-10 py-4"
+              className="btn-secondary inline-flex items-center text-lg px-10 py-4 bounce"
             >
               <Home className="mr-3 h-6 w-6" />
               View on Map
@@ -82,8 +79,8 @@ export default function HomePage() {
         </div>
 
         {/* Enhanced Feature Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20 slide-in-left">
-          <div className="card p-10 text-center group hover:scale-105">
+        <div className="grid md:grid-cols-3 gap-8 mb-20 slide-in">
+          <div className="property-card p-10 text-center group">
             <div className="w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center transition-all duration-300"
                  style={{ backgroundColor: 'var(--brown-100)' }}>
               <Search className="h-8 w-8" style={{ color: 'var(--brown-700)' }} />

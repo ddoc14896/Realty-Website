@@ -218,22 +218,22 @@ export default function AdminUsersPage() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-warm fade-in">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white/90 backdrop-blur-md shadow-lg border-b slide-in-top">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/admin" className="flex items-center space-x-2">
+            <Link href="/admin" className="flex items-center space-x-2 bounce-in">
               <span className="text-xl font-bold text-gray-900">🏠 Admin - Users</span>
             </Link>
-            <nav className="flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-brown-600 font-medium">
+            <nav className="flex space-x-2">
+              <Link href="/" className="nav-link px-4 py-2 mx-2">
                 Home
               </Link>
-              <Link href="/admin" className="text-gray-700 hover:text-brown-600 font-medium">
+              <Link href="/admin" className="nav-link px-4 py-2 mx-2">
                 Admin
               </Link>
-              <button className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
+              <button className="nav-link bg-red-100 text-red-600 px-4 py-2 mx-2 rounded-lg hover:bg-red-200">
                 Logout
               </button>
             </nav>
@@ -241,24 +241,24 @@ export default function AdminUsersPage() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 slide-in-right">
         {/* Page Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
+        <div className="flex justify-between items-center mb-8 fade-in">
+          <div className="slide-in-left">
             <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
             <p className="text-gray-600 mt-2">Manage user accounts, roles, and permissions</p>
           </div>
           <Link
             href="/admin/users/new"
-            className="btn-primary flex items-center space-x-2 px-4 py-2"
+            className="btn-primary flex items-center space-x-2 px-4 py-2 bounce-in"
           >
-            <UserPlus className="h-5 w-5" />
+            <UserPlus className="h-5 w-5 pulse" />
             <span>Add User</span>
           </Link>
         </div>
 
         {/* Filters and Search */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="property-card bg-white rounded-lg shadow-md p-6 mb-8 fade-in">
           <div className="grid md:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
@@ -306,9 +306,9 @@ export default function AdminUsersPage() {
               <label className="block text-sm font-medium text-gray-700 mb-2">Actions</label>
               <button 
                 onClick={fetchUsers}
-                className="w-full flex items-center justify-center space-x-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+                className="nav-link w-full flex items-center justify-center space-x-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200"
               >
-                <Filter className="h-4 w-4" />
+                <Filter className="h-4 w-4 pulse" />
                 <span>Refresh</span>
               </button>
             </div>
@@ -316,8 +316,8 @@ export default function AdminUsersPage() {
         </div>
 
         {/* Users Table */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200">
+        <div className="property-card bg-white rounded-lg shadow-md overflow-hidden slide-in-up">
+          <div className="px-6 py-4 border-b border-gray-200 fade-in">
             <h3 className="text-lg font-medium text-gray-900">
               Users ({filteredUsers.length})
             </h3>
@@ -354,8 +354,8 @@ export default function AdminUsersPage() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50">
+                  {filteredUsers.map((user, index) => (
+                  <tr key={user.id} className="grid-item hover:bg-gray-50 fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-12 w-12">
@@ -412,7 +412,7 @@ export default function AdminUsersPage() {
                       <div className="flex items-center space-x-2">
                         <button 
                           onClick={() => handleEditUser(user)}
-                          className="font-medium hover:underline"
+                          className="nav-link font-medium hover:underline p-2"
                           style={{ color: 'var(--brown-600)' }}
                           title="Edit User"
                         >
@@ -420,7 +420,7 @@ export default function AdminUsersPage() {
                         </button>
                         <button 
                           onClick={() => handleDeleteUser(user.id)}
-                          className="text-red-600 hover:text-red-900"
+                          className="nav-link text-red-600 hover:text-red-900 p-2"
                           title="Delete User"
                         >
                           <Trash2 className="h-4 w-4" />
